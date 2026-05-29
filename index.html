@@ -37,20 +37,7 @@
       overflow-x: hidden;
     }
 
-    /* ── Custom cursor ── */
-    body { cursor: none; }
-    #cursor {
-      position: fixed;
-      width: 10px; height: 10px;
-      background: var(--ink);
-      border-radius: 50%;
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      transition: width .2s, height .2s, opacity .2s;
-      z-index: 9999;
-      mix-blend-mode: multiply;
-    }
-    #cursor.expand { width: 40px; height: 40px; opacity: .25; }
+    /* cursor handled by CAD cursor below */
 
     /* ── Noise overlay ── */
     body::before {
@@ -685,11 +672,52 @@
       .portfolio-grid { grid-template-columns: 1fr; }
       footer { flex-direction: column; gap: 12px; text-align: center; }
     }
+
+    /* ── CAD CURSOR ── */
+    * { cursor: none !important; }
+    #cad-cursor {
+      position: fixed;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: multiply;
+    }
+    #cad-coords {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .18em;
+      color: var(--ink);
+      pointer-events: none;
+      z-index: 99999;
+      opacity: .55;
+      white-space: nowrap;
+    }
+    #cad-coords .coord-label { color: var(--accent); }
   </style>
 </head>
 <body>
 
-  <div id="cursor"></div>
+  <!-- CAD CURSOR -->
+  <div id="cad-cursor">
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- crosshair lines -->
+      <line x1="16" y1="0" x2="16" y2="11" stroke="#9B4F3A" stroke-width="1"/>
+      <line x1="16" y1="21" x2="16" y2="32" stroke="#9B4F3A" stroke-width="1"/>
+      <line x1="0" y1="16" x2="11" y2="16" stroke="#9B4F3A" stroke-width="1"/>
+      <line x1="21" y1="16" x2="32" y2="16" stroke="#9B4F3A" stroke-width="1"/>
+      <!-- centre circle -->
+      <circle cx="16" cy="16" r="3" stroke="#9B4F3A" stroke-width="1" fill="none"/>
+    </svg>
+  </div>
+  <div id="cad-coords">
+    <span class="coord-label">X</span><span id="cx">0000</span>
+    &nbsp;&nbsp;
+    <span class="coord-label">Y</span><span id="cy">0000</span>
+  </div>
 
   <!-- NAV -->
   <nav id="nav">
@@ -780,7 +808,7 @@
   <section id="about">
     <div class="about-left">
       <p class="section-label reveal">Profile</p>
-      <h2 class="about-heading reveal reveal-delay-1">Design rooted in<br><em>place &amp; memory</em></h2>
+      <h2 class="about-heading reveal reveal-delay-1">Design rooted in<br><em>storytelling &amp; curiosity</em></h2>
       <p class="about-body reveal reveal-delay-2">I'm Viola, an Italian-born interior and architectural designer finishing my MA at the Royal College of Art. My eye for space was shaped early: growing up between Rome's layered architecture and the frequent visits to the Biennales of Venice, design was never abstract. It was always somewhere you could stand inside and feel.</p>
       <p class="about-body reveal reveal-delay-2">Educated at the American Overseas School of Rome, I bring a bilingual, cross-cultural perspective to everything I make. My practice sits at the intersection of spatial narrative, material honesty, and renovation: the belief that existing buildings hold stories worth continuing rather than erasing.</p>
       <p class="about-body reveal reveal-delay-2">Beyond the studio I work hands-on: MEP drawings, bespoke joinery documentation, on-site coordination and photoshoots at EastJR have made me just as comfortable on a building site as at a drawing board. Outside of work: acrobatic gymnastics, glassblowing, and a long-standing interest in neuropsychology, which feeds directly into how I think about the human experience of space.</p>
@@ -789,7 +817,7 @@
       <div class="skills-proficiency reveal reveal-delay-3">
         <div class="skill-row">
           <span class="skill-name">Rhino 3D</span>
-          <span class="skill-bar"><span class="skill-fill" style="width:95%"></span></span>
+          <span class="skill-bar"><span class="skill-fill" style="width:100%"></span></span>
           <span class="skill-level">Advanced</span>
         </div>
         <div class="skill-row">
@@ -799,12 +827,12 @@
         </div>
         <div class="skill-row">
           <span class="skill-name">Freehand Drawing</span>
-          <span class="skill-bar"><span class="skill-fill" style="width:92%"></span></span>
+          <span class="skill-bar"><span class="skill-fill" style="width:100%"></span></span>
           <span class="skill-level">Advanced</span>
         </div>
         <div class="skill-row">
           <span class="skill-name">Physical Model Making</span>
-          <span class="skill-bar"><span class="skill-fill" style="width:88%"></span></span>
+          <span class="skill-bar"><span class="skill-fill" style="width:100%"></span></span>
           <span class="skill-level">Advanced</span>
         </div>
         <div class="skill-row">
@@ -814,13 +842,13 @@
         </div>
         <div class="skill-row">
           <span class="skill-name">Orthographic &amp; MEP Drawings</span>
-          <span class="skill-bar"><span class="skill-fill" style="width:78%"></span></span>
-          <span class="skill-level">Proficient</span>
+          <span class="skill-bar"><span class="skill-fill" style="width:88%"></span></span>
+          <span class="skill-level">Advanced</span>
         </div>
         <div class="skill-row">
           <span class="skill-name">Bespoke Joinery Docs</span>
-          <span class="skill-bar"><span class="skill-fill" style="width:70%"></span></span>
-          <span class="skill-level">Proficient</span>
+          <span class="skill-bar"><span class="skill-fill" style="width:93%"></span></span>
+          <span class="skill-level">Advanced</span>
         </div>
         <div class="skill-row">
           <span class="skill-name">AutoCAD</span>
@@ -863,7 +891,7 @@
         </div>
         <div class="stat-item">
           <div class="stat-number">3</div>
-          <div class="stat-label">IT / EN / ES</div>
+          <div class="stat-label">Languages — IT / EN / ES</div>
         </div>
         <div class="stat-item">
           <div class="stat-number">2</div>
@@ -1048,15 +1076,35 @@
   </footer>
 
   <script>
-    // Custom cursor
-    const cursor = document.getElementById('cursor');
+    // CAD Cursor
+    const cadCursor = document.getElementById('cad-cursor');
+    const cxEl = document.getElementById('cx');
+    const cyEl = document.getElementById('cy');
+    let curX = window.innerWidth / 2, curY = window.innerHeight / 2;
+    let raf;
+
+    function pad(n) { return String(Math.round(n)).padStart(4, '0'); }
+
     document.addEventListener('mousemove', e => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
+      curX = e.clientX;
+      curY = e.clientY;
+      cadCursor.style.left = curX + 'px';
+      cadCursor.style.top = curY + 'px';
+      // coords: X from left, Y inverted (architectural convention, 0 at bottom)
+      cxEl.textContent = pad(curX);
+      cyEl.textContent = pad(window.innerHeight - curY);
     });
+
+    // Subtle scale on hover over links
     document.querySelectorAll('a, button').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+      el.addEventListener('mouseenter', () => {
+        cadCursor.style.transform = 'translate(-50%,-50%) scale(1.5)';
+        cadCursor.style.opacity = '0.6';
+      });
+      el.addEventListener('mouseleave', () => {
+        cadCursor.style.transform = 'translate(-50%,-50%) scale(1)';
+        cadCursor.style.opacity = '1';
+      });
     });
 
     // Nav scroll
