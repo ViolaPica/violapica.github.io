@@ -10,7 +10,7 @@
   <meta property="og:image" content="preview.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@200;300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -21,7 +21,7 @@
       --accent: #9B4F3A;
       --rule: #D9CFC4;
       --accent-light: #C87A62;
-      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-display: 'Urbanist', Helvetica, Arial, sans-serif;
       --font-mono: 'DM Mono', monospace;
     }
 
@@ -47,6 +47,14 @@
       opacity: .028;
       pointer-events: none;
       z-index: 9998;
+    }
+
+    /* Inter has no true italic — use weight/colour contrast for em accent words */
+    h1 em, h2 em {
+      font-style: normal;
+      font-weight: 200;
+      color: var(--accent);
+      letter-spacing: .04em;
     }
 
     /* ── NAV ── */
@@ -109,18 +117,19 @@
       font-size: clamp(64px, 6.5vw, 108px);
       line-height: .92;
       font-weight: 300;
-      letter-spacing: -.01em;
+      letter-spacing: .08em;
       opacity: 0;
       animation: fadeUp .9s .35s ease forwards;
     }
     .hero-name em {
-      font-style: italic;
-      color: var(--warm-mid);
+      font-style: normal;
+      font-weight: 300;
+      color: var(--accent);
     }
     .hero-tagline {
       margin-top: 36px;
       font-size: 16px;
-      font-weight: 300;
+      font-weight: 400;
       color: var(--warm-mid);
       max-width: 360px;
       line-height: 1.7;
@@ -224,13 +233,14 @@
       font-size: clamp(36px, 3.5vw, 56px);
       line-height: 1.1;
       font-weight: 300;
-      letter-spacing: -.01em;
+      letter-spacing: .04em;
       margin-bottom: 40px;
     }
-    .about-heading em { font-style: italic; color: var(--warm-mid); }
+    .about-heading em { font-style: normal; font-weight: 200; color: var(--accent); }
     .about-body {
-      font-size: 17px;
-      line-height: 1.8;
+      font-size: 15px;
+      line-height: 1.9;
+      font-weight: 300;
       color: #4A4540;
       margin-bottom: 24px;
     }
@@ -263,9 +273,9 @@
     .stat-item:first-child { border-top: 1px solid var(--rule); }
     .stat-number {
       font-size: 52px;
-      font-weight: 300;
+      font-weight: 200;
       line-height: 1;
-      letter-spacing: -.02em;
+      letter-spacing: .02em;
     }
     .stat-label {
       font-family: var(--font-mono);
@@ -286,9 +296,9 @@
       font-weight: 300;
       line-height: 1.1;
       margin-bottom: 72px;
-      letter-spacing: -.01em;
+      letter-spacing: .04em;
     }
-    .exp-heading em { font-style: italic; color: var(--accent); }
+    .exp-heading em { font-style: normal; font-weight: 200; color: var(--accent); }
 
     .exp-list { display: flex; flex-direction: column; }
     .exp-item {
@@ -392,8 +402,8 @@
     .award-number {
       font-size: 72px;
       line-height: 1;
-      font-weight: 300;
-      letter-spacing: -.03em;
+      font-weight: 400;
+      letter-spacing: .01em;
       color: var(--rule);
       margin-bottom: 16px;
     }
@@ -436,9 +446,9 @@
       font-weight: 300;
       line-height: 1;
       margin-bottom: 40px;
-      letter-spacing: -.01em;
+      letter-spacing: .04em;
     }
-    .contact-heading em { font-style: italic; color: var(--accent); }
+    .contact-heading em { font-style: normal; font-weight: 200; color: var(--accent); }
     .contact-links {
       display: flex;
       flex-direction: column;
@@ -626,7 +636,7 @@
     }
     .portfolio-caption-title {
       font-size: 20px;
-      font-weight: 300;
+      font-weight: 400;
     }
     .portfolio-cta {
       margin-top: 48px;
@@ -652,7 +662,19 @@
       border: 1px solid var(--rule);
       color: var(--ink);
     }
-    .btn-download.ghost:hover { border-color: var(--accent); color: var(--accent); }
+    #contact .btn-download.primary {
+      background: var(--accent);
+      color: var(--cream);
+      border-color: var(--accent);
+    }
+    #contact .btn-download.ghost {
+      border-color: rgba(244,240,235,.3);
+      color: var(--cream);
+    }
+    #contact .btn-download.ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
@@ -680,7 +702,7 @@
       pointer-events: none;
       z-index: 99999;
       transform: translate(-50%, -50%);
-      mix-blend-mode: multiply;
+      transition: transform .15s ease;
     }
     #cad-coords {
       position: fixed;
@@ -690,11 +712,11 @@
       font-family: var(--font-mono);
       font-size: 10px;
       letter-spacing: .18em;
-      color: var(--ink);
       pointer-events: none;
       z-index: 99999;
-      opacity: .55;
+      opacity: .7;
       white-space: nowrap;
+      transition: color .3s ease;
     }
     #cad-coords .coord-label { color: var(--accent); }
   </style>
@@ -1028,17 +1050,6 @@
         </div>
       </div>
     </div>
-    <div class="portfolio-cta reveal reveal-delay-2">
-      <a href="portfolio.pdf" class="btn-download primary" download>
-        ↓ Download Full Portfolio
-      </a>
-      <a href="cv.pdf" class="btn-download ghost" download>
-        ↓ Download CV
-      </a>
-      <a href="bio.pdf" class="btn-download ghost" download>
-        ↓ Introduction PDF
-      </a>
-    </div>
   </section>
 
   <!-- CONTACT -->
@@ -1046,9 +1057,8 @@
     <div class="contact-bg"></div>
     <div class="contact-inner">
       <p class="section-label reveal" style="color:var(--accent);">Contact</p>
-      <h2 class="contact-heading reveal reveal-delay-1">Let's make<br>something<br><em>together</em></h2>
 
-      <div class="contact-links reveal reveal-delay-2">
+      <div class="contact-links reveal reveal-delay-1">
         <a href="mailto:info4viola@gmail.com" class="contact-link-item">
           <span class="contact-link-label">Email</span>
           <span class="contact-link-value">info4viola@gmail.com</span>
@@ -1065,6 +1075,12 @@
           <span class="contact-link-arrow">→</span>
         </a>
       </div>
+
+      <div class="portfolio-cta reveal reveal-delay-2" style="margin-top:56px;">
+        <a href="portfolio.pdf" class="btn-download primary" download>↓ Download Portfolio</a>
+        <a href="cv.pdf" class="btn-download ghost" download>↓ Download CV</a>
+        <a href="bio.pdf" class="btn-download ghost" download>↓ Introduction PDF</a>
+      </div>
     </div>
   </section>
 
@@ -1072,30 +1088,64 @@
   <footer>
     <p>© 2026 Viola Pica</p>
     <p>Interior Architecture &amp; Design</p>
-    <p>MA Royal College of Art</p>
   </footer>
 
   <script>
-    // CAD Cursor
+    // CAD Cursor — smart colour switching
     const cadCursor = document.getElementById('cad-cursor');
     const cxEl = document.getElementById('cx');
     const cyEl = document.getElementById('cy');
-    let curX = window.innerWidth / 2, curY = window.innerHeight / 2;
-    let raf;
+    const cursorLines = cadCursor.querySelectorAll('line, circle');
+    const coordsEl = document.getElementById('cad-coords');
+    const coordLabel = coordsEl.querySelectorAll('.coord-label');
+
+    // Sections with dark backgrounds
+    const darkSections = ['contact', 'experience'];
+
+    function getCursorColour(x, y) {
+      // Check footer manually since it's not a section
+      const footer = document.querySelector('footer');
+      if (footer) {
+        const r = footer.getBoundingClientRect();
+        if (y >= r.top && y <= r.bottom) return CREAM;
+      }
+      const section = getCurrentSection(y);
+      return darkSections.includes(section) ? CREAM : TERRACOTTA;
+    }
+
+    const TERRACOTTA = '#9B4F3A';
+    const CREAM = '#F4F0EB';
 
     function pad(n) { return String(Math.round(n)).padStart(4, '0'); }
 
+    function getCurrentSection(y) {
+      const sections = document.querySelectorAll('section');
+      let current = null;
+      sections.forEach(s => {
+        const rect = s.getBoundingClientRect();
+        if (rect.top <= y && rect.bottom >= y) current = s.id;
+      });
+      return current;
+    }
+
+    function setCursorColour(colour) {
+      cursorLines.forEach(el => el.setAttribute('stroke', colour));
+      coordsEl.style.color = colour;
+      coordLabel.forEach(el => el.style.color = colour);
+    }
+
+    // Default terracotta
+    setCursorColour(TERRACOTTA);
+
     document.addEventListener('mousemove', e => {
-      curX = e.clientX;
-      curY = e.clientY;
-      cadCursor.style.left = curX + 'px';
-      cadCursor.style.top = curY + 'px';
-      // coords: X from left, Y inverted (architectural convention, 0 at bottom)
-      cxEl.textContent = pad(curX);
-      cyEl.textContent = pad(window.innerHeight - curY);
+      cadCursor.style.left = e.clientX + 'px';
+      cadCursor.style.top = e.clientY + 'px';
+      cxEl.textContent = pad(e.clientX);
+      cyEl.textContent = pad(window.innerHeight - e.clientY);
+      setCursorColour(getCursorColour(e.clientX, e.clientY));
     });
 
-    // Subtle scale on hover over links
+    // Scale on hover over links
     document.querySelectorAll('a, button').forEach(el => {
       el.addEventListener('mouseenter', () => {
         cadCursor.style.transform = 'translate(-50%,-50%) scale(1.5)';
