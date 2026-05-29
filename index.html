@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Viola Pica — Interior Architecture & Design, London</title>
+  <meta name="description" content="Viola Pica — Interior Architecture and Design. MA Royal College of Art, London. RIBA First Prize Winner. Available for junior and graduate design roles in London." />
+  <meta property="og:title" content="Viola Pica — Interior Architecture & Design" />
+  <meta property="og:description" content="MA Interior Design at the Royal College of Art. RIBA First Prize Winner. Based in London." />
+  <meta property="og:image" content="preview.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #F4F0EB;
+      --ink: #1C1410;
+      --warm-mid: #7A6B60;
+      --accent: #9B4F3A;
+      --rule: #D9CFC4;
+      --accent-light: #C87A62;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-mono: 'DM Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: 18px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* ── Custom cursor ── */
+    body { cursor: none; }
+    #cursor {
+      position: fixed;
+      width: 10px; height: 10px;
+      background: var(--ink);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: width .2s, height .2s, opacity .2s;
+      z-index: 9999;
+      mix-blend-mode: multiply;
+    }
+    #cursor.expand { width: 40px; height: 40px; opacity: .25; }
+
+    /* ── Noise overlay ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: .028;
+      pointer-events: none;
+      z-index: 9998;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 28px 60px;
+      z-index: 100;
+      background: transparent;
+      transition: background .4s;
+    }
+    nav.scrolled { background: rgba(244,240,235,.92); backdrop-filter: blur(12px); }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 15px;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 400;
+    }
+    .nav-links { display: flex; gap: 40px; list-style: none; }
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--warm-mid);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 140px 60px 80px;
+      position: relative;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--warm-mid);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp .8s .2s ease forwards;
+    }
+    .hero-name {
+      font-size: clamp(64px, 6.5vw, 108px);
+      line-height: .92;
+      font-weight: 300;
+      letter-spacing: -.01em;
+      opacity: 0;
+      animation: fadeUp .9s .35s ease forwards;
+    }
+    .hero-name em {
+      font-style: italic;
+      color: var(--warm-mid);
+    }
+    .hero-tagline {
+      margin-top: 36px;
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--warm-mid);
+      max-width: 360px;
+      line-height: 1.7;
+      opacity: 0;
+      animation: fadeUp .8s .55s ease forwards;
+    }
+    .hero-cta {
+      margin-top: 52px;
+      display: flex; gap: 24px; align-items: center;
+      opacity: 0;
+      animation: fadeUp .8s .7s ease forwards;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 14px 36px;
+      border: 1px solid var(--ink);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      transition: background .25s, color .25s;
+    }
+    .btn-primary:hover { background: var(--ink); color: var(--cream); }
+    .hero-scroll {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--warm-mid);
+      text-decoration: none;
+    }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-graphic {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    /* Architectural line drawing as SVG background */
+    .hero-graphic svg {
+      width: 80%; height: 80%;
+      opacity: 0;
+      animation: fadeIn 1.2s .4s ease forwards;
+    }
+
+    /* Floating award badge */
+    .award-pill {
+      position: absolute;
+      bottom: 80px; right: 60px;
+      background: var(--ink);
+      color: var(--cream);
+      padding: 16px 24px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      line-height: 1.8;
+      opacity: 0;
+      animation: fadeUp .7s .9s ease forwards;
+    }
+    .award-pill span { color: var(--accent); }
+
+    /* horizontal rule */
+    .h-rule {
+      position: absolute;
+      bottom: 0; left: 60px; right: 60px;
+      height: 1px; background: var(--rule);
+    }
+
+    /* ── SECTION BASE ── */
+    section { padding: 120px 60px; }
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 64px;
+      display: flex; align-items: center; gap: 20px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .about-left {}
+    .about-heading {
+      font-size: clamp(36px, 3.5vw, 56px);
+      line-height: 1.1;
+      font-weight: 300;
+      letter-spacing: -.01em;
+      margin-bottom: 40px;
+    }
+    .about-heading em { font-style: italic; color: var(--warm-mid); }
+    .about-body {
+      font-size: 17px;
+      line-height: 1.8;
+      color: #4A4540;
+      margin-bottom: 24px;
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--rule);
+      margin-top: 40px;
+    }
+    .skill-item {
+      padding: 18px 0;
+      border-bottom: 1px solid var(--rule);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--warm-mid);
+    }
+    .skill-item:nth-child(odd) { padding-right: 20px; border-right: 1px solid var(--rule); }
+
+    .about-right {
+      padding-top: 60px;
+    }
+    .stat-stack { display: flex; flex-direction: column; gap: 0; }
+    .stat-item {
+      padding: 32px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .stat-item:first-child { border-top: 1px solid var(--rule); }
+    .stat-number {
+      font-size: 52px;
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -.02em;
+    }
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--warm-mid);
+      margin-top: 8px;
+    }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--ink); color: var(--cream); }
+    #experience .section-label { color: var(--accent); }
+    #experience .section-label::after { background: rgba(255,255,255,.12); }
+
+    .exp-heading {
+      font-size: clamp(36px, 3.5vw, 52px);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 72px;
+      letter-spacing: -.01em;
+    }
+    .exp-heading em { font-style: italic; color: var(--accent); }
+
+    .exp-list { display: flex; flex-direction: column; }
+    .exp-item {
+      display: grid;
+      grid-template-columns: 180px 1fr 200px;
+      gap: 40px;
+      align-items: start;
+      padding: 40px 0;
+      border-top: 1px solid rgba(255,255,255,.1);
+      transition: border-color .3s;
+    }
+    .exp-item:last-child { border-bottom: 1px solid rgba(255,255,255,.1); }
+    .exp-item:hover { border-top-color: var(--accent); }
+    .exp-date {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .1em;
+      color: rgba(255,255,255,.35);
+      padding-top: 6px;
+    }
+    .exp-title {
+      font-size: 22px;
+      font-weight: 400;
+      margin-bottom: 6px;
+    }
+    .exp-company {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .exp-desc {
+      font-size: 15px;
+      line-height: 1.75;
+      color: rgba(255,255,255,.55);
+    }
+    .exp-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,.2);
+      padding: 6px 14px;
+      color: rgba(255,255,255,.4);
+      align-self: start;
+      justify-self: end;
+    }
+
+    /* ── EDUCATION ── */
+    #education {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+    }
+    #education .section-label { grid-column: 1/-1; margin-bottom: 0; }
+
+    .edu-item {
+      padding: 40px 0;
+      border-top: 1px solid var(--rule);
+    }
+    .edu-degree {
+      font-size: 24px;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+    .edu-school {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--warm-mid);
+      margin-bottom: 10px;
+    }
+    .edu-year {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+    }
+
+    /* ── AWARDS ── */
+    #awards {
+      background: var(--cream);
+      padding: 120px 60px;
+    }
+    .awards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--rule);
+      margin-top: 32px;
+    }
+    .award-item {
+      padding: 48px 48px 48px 0;
+      border-bottom: 1px solid var(--rule);
+      position: relative;
+    }
+    .award-item + .award-item { border-left: 1px solid var(--rule); padding-left: 48px; }
+    .award-item:nth-child(3n+1) { border-left: none; padding-left: 0; }
+    .award-number {
+      font-size: 72px;
+      line-height: 1;
+      font-weight: 300;
+      letter-spacing: -.03em;
+      color: var(--rule);
+      margin-bottom: 16px;
+    }
+    .award-title {
+      font-size: 20px;
+      font-weight: 400;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .award-org {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--warm-mid);
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 120px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-bg {
+      position: absolute;
+      top: -40%; right: -10%;
+      width: 60vw; height: 160%;
+      border: 1px solid rgba(255,255,255,.04);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .contact-inner {
+      position: relative;
+      max-width: 700px;
+    }
+    .contact-heading {
+      font-size: clamp(44px, 5vw, 80px);
+      font-weight: 300;
+      line-height: 1;
+      margin-bottom: 40px;
+      letter-spacing: -.01em;
+    }
+    .contact-heading em { font-style: italic; color: var(--accent); }
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 64px;
+    }
+    .contact-link-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      border-top: 1px solid rgba(255,255,255,.1);
+      text-decoration: none;
+      color: inherit;
+      transition: border-color .2s;
+    }
+    .contact-link-item:last-child { border-bottom: 1px solid rgba(255,255,255,.1); }
+    .contact-link-item:hover { border-top-color: var(--accent); }
+    .contact-link-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .contact-link-value {
+      font-size: 18px;
+      color: rgba(255,255,255,.8);
+    }
+    .contact-link-arrow {
+      font-size: 20px;
+      color: rgba(255,255,255,.25);
+      transition: transform .2s, color .2s;
+    }
+    .contact-link-item:hover .contact-link-arrow {
+      transform: translateX(6px);
+      color: var(--accent);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 32px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer p {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.25);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+    .reveal-delay-4 { transition-delay: .4s; }
+
+    .skills-heading {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-top: 40px;
+      margin-bottom: 16px;
+    }
+    .skills-proficiency {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      border-top: 1px solid var(--rule);
+      padding-top: 16px;
+    }
+    .skill-row {
+      display: grid;
+      grid-template-columns: 180px 1fr 72px;
+      align-items: center;
+      gap: 16px;
+    }
+    .skill-name {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--warm-mid);
+    }
+    .skill-bar {
+      height: 2px;
+      background: var(--rule);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .skill-fill {
+      display: block;
+      height: 100%;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+    .skill-level {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-align: right;
+    }
+
+    /* ── PORTFOLIO ── */
+    #portfolio { background: var(--cream); padding: 120px 60px; }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3px;
+      margin-top: 32px;
+    }
+    .portfolio-item {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: var(--rule);
+    }
+    .portfolio-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .6s ease;
+    }
+    .portfolio-item:hover img { transform: scale(1.03); }
+    .portfolio-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      background: #EBE4DC;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--warm-mid);
+      flex-direction: column;
+      gap: 10px;
+    }
+    .portfolio-placeholder::before {
+      content: '+';
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--accent);
+      font-family: var(--font-display);
+    }
+    .portfolio-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 24px;
+      background: linear-gradient(transparent, rgba(28,20,16,.75));
+      color: var(--cream);
+    }
+    .portfolio-caption-year {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 4px;
+    }
+    .portfolio-caption-title {
+      font-size: 20px;
+      font-weight: 300;
+    }
+    .portfolio-cta {
+      margin-top: 48px;
+      display: flex; gap: 20px; align-items: center; flex-wrap: wrap;
+    }
+    .btn-download {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 36px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background .25s, color .25s, border-color .25s;
+    }
+    .btn-download.primary {
+      background: var(--accent);
+      color: var(--cream);
+      border: 1px solid var(--accent);
+    }
+    .btn-download.primary:hover { background: var(--ink); border-color: var(--ink); }
+    .btn-download.ghost {
+      border: 1px solid var(--rule);
+      color: var(--ink);
+    }
+    .btn-download.ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 24px 28px; }
+      .nav-links { gap: 24px; }
+      section { padding: 80px 28px; }
+      #hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 120px 28px 60px; }
+      .hero-right { display: none; }
+      #about { grid-template-columns: 1fr; gap: 48px; }
+      #education { grid-template-columns: 1fr; gap: 0; }
+      #education .section-label { grid-column: 1; }
+      .exp-item { grid-template-columns: 1fr; gap: 12px; }
+      .exp-tag { justify-self: start; }
+      .awards-grid { grid-template-columns: 1fr; }
+      .award-item + .award-item { border-left: none; padding-left: 0; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cursor"></div>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#hero" class="nav-logo">Viola Pica</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#awards">Recognition</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Interior Architecture &amp; Design, London</p>
+      <h1 class="hero-name">Viola<br><em>Pica</em></h1>
+      <p class="hero-tagline">MA Interior Design, Royal College of Art. BA Hons Interior Design &amp; Environmental Architecture, Ravensbourne University. Rooted in Rome and Venice, practising in London, with a passion for craft, atmosphere and spatial narrative.</p>
+      <div class="hero-cta">
+        <a href="#portfolio" class="btn-primary">View Work</a>
+        <a href="#contact" class="hero-scroll">Get in touch ↓</a>
+      </div>
+      <div class="h-rule"></div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-graphic">
+        <!-- Architectural line drawing -->
+        <svg viewBox="0 0 480 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Floor plan / section lines -->
+          <rect x="80" y="80" width="320" height="360" stroke="#D9CFC4" stroke-width=".8"/>
+          <rect x="120" y="120" width="240" height="280" stroke="#D9CFC4" stroke-width=".5"/>
+          <!-- Interior lines -->
+          <line x1="80" y1="280" x2="400" y2="280" stroke="#D9CFC4" stroke-width=".6"/>
+          <line x1="240" y1="80" x2="240" y2="440" stroke="#D9CFC4" stroke-width=".6"/>
+          <!-- Window indications -->
+          <line x1="80" y1="160" x2="80" y2="200" stroke="#9B4F3A" stroke-width="2"/>
+          <line x1="400" y1="320" x2="400" y2="360" stroke="#9B4F3A" stroke-width="2"/>
+          <!-- Door arc -->
+          <path d="M 240 440 Q 290 440 290 390" stroke="#7A6B60" stroke-width=".8" fill="none"/>
+          <line x1="240" y1="440" x2="290" y2="440" stroke="#7A6B60" stroke-width=".8"/>
+          <!-- North arrow -->
+          <line x1="420" y1="60" x2="420" y2="30" stroke="#1A1714" stroke-width="1.2"/>
+          <polygon points="420,22 415,36 425,36" fill="#1A1714"/>
+          <text x="417" y="54" font-family="monospace" font-size="9" fill="#7A6B60">N</text>
+          <!-- Section markers -->
+          <circle cx="80" cy="80" r="6" stroke="#9B4F3A" stroke-width=".8" fill="none"/>
+          <circle cx="400" cy="80" r="6" stroke="#9B4F3A" stroke-width=".8" fill="none"/>
+          <circle cx="80" cy="440" r="6" stroke="#9B4F3A" stroke-width=".8" fill="none"/>
+          <circle cx="400" cy="440" r="6" stroke="#9B4F3A" stroke-width=".8" fill="none"/>
+          <!-- Dimension lines -->
+          <line x1="60" y1="80" x2="60" y2="440" stroke="#D9CFC4" stroke-width=".5"/>
+          <line x1="55" y1="80" x2="65" y2="80" stroke="#D9CFC4" stroke-width=".5"/>
+          <line x1="55" y1="440" x2="65" y2="440" stroke="#D9CFC4" stroke-width=".5"/>
+          <text x="36" y="265" font-family="monospace" font-size="8" fill="#9B4F3A" transform="rotate(-90,36,265)">8400 mm</text>
+          <line x1="80" y1="460" x2="400" y2="460" stroke="#D9CFC4" stroke-width=".5"/>
+          <line x1="80" y1="455" x2="80" y2="465" stroke="#D9CFC4" stroke-width=".5"/>
+          <line x1="400" y1="455" x2="400" y2="465" stroke="#D9CFC4" stroke-width=".5"/>
+          <text x="215" y="476" font-family="monospace" font-size="8" fill="#9B4F3A">6800 mm</text>
+          <!-- Hatching in one room -->
+          <line x1="120" y1="120" x2="140" y2="140" stroke="#E8E0D6" stroke-width=".4"/>
+          <line x1="130" y1="120" x2="160" y2="150" stroke="#E8E0D6" stroke-width=".4"/>
+          <line x1="140" y1="120" x2="180" y2="160" stroke="#E8E0D6" stroke-width=".4"/>
+          <line x1="150" y1="120" x2="200" y2="170" stroke="#E8E0D6" stroke-width=".4"/>
+          <line x1="160" y1="120" x2="220" y2="180" stroke="#E8E0D6" stroke-width=".4"/>
+          <line x1="170" y1="120" x2="240" y2="190" stroke="#E8E0D6" stroke-width=".4"/>
+          <line x1="180" y1="120" x2="240" y2="180" stroke="#E8E0D6" stroke-width=".4"/>
+          <!-- Scale bar -->
+          <rect x="290" y="460" width="80" height="6" fill="#D9CFC4"/>
+          <rect x="290" y="460" width="40" height="6" fill="#7A6B60"/>
+          <text x="290" y="478" font-family="monospace" font-size="7" fill="#9B4F3A">0</text>
+          <text x="326" y="478" font-family="monospace" font-size="7" fill="#9B4F3A">2m</text>
+          <text x="362" y="478" font-family="monospace" font-size="7" fill="#9B4F3A">4m</text>
+        </svg>
+      </div>
+
+      <div class="award-pill">
+        <span>01</span> RIBA First Prize — 2023<br>
+        <span>02</span> Dezeen — Published<br>
+        <span>03</span> RIBA SELA Judge — 2024
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-left">
+      <p class="section-label reveal">Profile</p>
+      <h2 class="about-heading reveal reveal-delay-1">Design rooted in<br><em>place &amp; memory</em></h2>
+      <p class="about-body reveal reveal-delay-2">I'm Viola, an Italian-born interior and architectural designer finishing my MA at the Royal College of Art. My eye for space was shaped early: growing up between Rome's layered architecture and the frequent visits to the Biennales of Venice, design was never abstract. It was always somewhere you could stand inside and feel.</p>
+      <p class="about-body reveal reveal-delay-2">Educated at the American Overseas School of Rome, I bring a bilingual, cross-cultural perspective to everything I make. My practice sits at the intersection of spatial narrative, material honesty, and renovation: the belief that existing buildings hold stories worth continuing rather than erasing.</p>
+      <p class="about-body reveal reveal-delay-2">Beyond the studio I work hands-on: MEP drawings, bespoke joinery documentation, on-site coordination and photoshoots at EastJR have made me just as comfortable on a building site as at a drawing board. Outside of work: acrobatic gymnastics, glassblowing, and a long-standing interest in neuropsychology, which feeds directly into how I think about the human experience of space.</p>
+
+      <p class="skills-heading reveal reveal-delay-3">Software &amp; Technical</p>
+      <div class="skills-proficiency reveal reveal-delay-3">
+        <div class="skill-row">
+          <span class="skill-name">Rhino 3D</span>
+          <span class="skill-bar"><span class="skill-fill" style="width:95%"></span></span>
+          <span class="skill-level">Advanced</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Adobe Suite (ID, AI, PS)</span>
+          <span class="skill-bar"><span class="skill-fill" style="width:88%"></span></span>
+          <span class="skill-level">Advanced</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Freehand Drawing</span>
+          <span class="skill-bar"><span class="skill-fill" style="width:92%"></span></span>
+          <span class="skill-level">Advanced</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Physical Model Making</span>
+          <span class="skill-bar"><span class="skill-fill" style="width:88%"></span></span>
+          <span class="skill-level">Advanced</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">SketchUp</span>
+          <span class="skill-bar"><span class="skill-fill" style="width:72%"></span></span>
+          <span class="skill-level">Proficient</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Orthographic &amp; MEP Drawings</span>
+          <span class="skill-bar"><span class="skill-fill" style="width:78%"></span></span>
+          <span class="skill-level">Proficient</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Bespoke Joinery Docs</span>
+          <span class="skill-bar"><span class="skill-fill" style="width:70%"></span></span>
+          <span class="skill-level">Proficient</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">AutoCAD</span>
+          <span class="skill-bar"><span class="skill-fill" style="width:32%"></span></span>
+          <span class="skill-level">Familiar</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Revit</span>
+          <span class="skill-bar"><span class="skill-fill" style="width:22%"></span></span>
+          <span class="skill-level">Familiar</span>
+        </div>
+      </div>
+
+      <p class="skills-heading reveal reveal-delay-3" style="margin-top:32px;">Studio &amp; Practice</p>
+      <div class="skills-grid reveal reveal-delay-3">
+        <div class="skill-item">Client Management</div>
+        <div class="skill-item">Project Coordination</div>
+        <div class="skill-item">Material Specification</div>
+        <div class="skill-item">On-Site Coordination</div>
+        <div class="skill-item">Planning &amp; Building Regs</div>
+        <div class="skill-item">Photography &amp; Videography</div>
+        <div class="skill-item">Team Collaboration</div>
+        <div class="skill-item">Supplier Management</div>
+      </div>
+    </div>
+
+    <div class="about-right reveal reveal-delay-2">
+      <div class="stat-stack">
+        <div class="stat-item">
+          <div class="stat-number">RCA</div>
+          <div class="stat-label">MA Interior Design, 2025/26</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">RIBA</div>
+          <div class="stat-label">Part 1 Certified, First Prize Winner</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">2+</div>
+          <div class="stat-label">Years London studio experience</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">3</div>
+          <div class="stat-label">IT / EN / ES</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">2</div>
+          <div class="stat-label">Countries with live built projects</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <p class="section-label reveal">Work</p>
+    <h2 class="exp-heading reveal reveal-delay-1">Experience &amp;<br><em>Practice</em></h2>
+
+    <div class="exp-list">
+      <div class="exp-item reveal">
+        <div class="exp-date">May 2024 –<br>Present</div>
+        <div>
+          <div class="exp-title">Design &amp; Studio Assistant</div>
+          <div class="exp-company">EastJR, Bethnal Green, London</div>
+          <div class="exp-desc">End-to-end studio involvement across design, production and client relations. Produces MEP technical drawings and detailed joinery documentation; develops 3D models for bespoke joinery and interior packages; manages material samples and supplier communications. Coordinates professional photoshoots, content creation and website updates. On-site installation oversight and client meeting support throughout project delivery.</div>
+        </div>
+        <div class="exp-tag">Current</div>
+      </div>
+
+      <div class="exp-item reveal reveal-delay-1">
+        <div class="exp-date">2023 –<br>2025</div>
+        <div>
+          <div class="exp-title">Architectural Designer, Freelance</div>
+          <div class="exp-company">Sulla Strada ONLUS, Guatemala &amp; Italy</div>
+          <div class="exp-desc">Technical orthographic drawings and visualisations for a 250 sqm multifunctional facility in Cerro La Granadilla, Guatemala. Architectural plans developed for presentation to financiers, successfully securing project funding. Collaborated with engineers and field professionals on feasibility and local construction methods, integrating permaculture and agroecological principles. Project approved for construction 2023; currently designing a new Instituto Tecnológico vocational training centre backed by a €1M+ donor contribution.</div>
+        </div>
+        <div class="exp-tag">Pro Bono</div>
+      </div>
+
+      <div class="exp-item reveal reveal-delay-2">
+        <div class="exp-date">Jun 2022 –<br>Aug 2022</div>
+        <div>
+          <div class="exp-title">Student Architect, RIBA Mentorship</div>
+          <div class="exp-company">APE Architecture &amp; Design, RIBA Future Architecture Programme</div>
+          <div class="exp-desc">Structured mentoring scheme pairing students with practising architects. Construction site visits to live projects and completed works; hands-on insight into project management, architectural workflows and the journey from design intent to built outcome.</div>
+        </div>
+        <div class="exp-tag">RIBA</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <p class="section-label reveal">Education</p>
+
+    <div class="edu-item reveal">
+      <div class="edu-degree">MA Interior Design</div>
+      <div class="edu-school">Royal College of Art, London</div>
+      <div class="edu-year">2025 – 2026</div>
+    </div>
+
+    <div class="edu-item reveal reveal-delay-1">
+      <div class="edu-degree">BA (Hons) Interior Design<br>&amp; Environmental Architecture</div>
+      <div class="edu-school">Ravensbourne University London, ARB Part 1 / RIBA Part 1</div>
+      <div class="edu-year">2020 – 2023</div>
+    </div>
+
+    <div class="edu-item reveal reveal-delay-2">
+      <div class="edu-degree">International Baccalaureate</div>
+      <div class="edu-school">American Overseas School of Rome</div>
+      <div class="edu-year">IB Diploma Programme</div>
+    </div>
+  </section>
+
+  <!-- AWARDS -->
+  <section id="awards">
+    <p class="section-label reveal">Recognition</p>
+    <div class="awards-grid" style="grid-template-columns: repeat(3,1fr);">
+      <div class="award-item reveal">
+        <div class="award-number">01</div>
+        <div class="award-title">RIBA First Prize, Student Awards</div>
+        <div class="award-org">RIBA South East London Architects Group<br>Best Final Major Project, 2023</div>
+      </div>
+      <div class="award-item reveal reveal-delay-1">
+        <div class="award-number">02</div>
+        <div class="award-title">Published on Dezeen</div>
+        <div class="award-org">Final Major Project featured<br>dezeen.com, July 2023</div>
+      </div>
+      <div class="award-item reveal reveal-delay-2">
+        <div class="award-number">03</div>
+        <div class="award-title">Craft Excellence, Shortlisted</div>
+        <div class="award-org">Interior Educators (IE) Summer Show<br>OXO Barge House, South Bank, 2023</div>
+      </div>
+      <div class="award-item reveal reveal-delay-1">
+        <div class="award-number">04</div>
+        <div class="award-title">RIBA SELA End-of-Year Show Judge</div>
+        <div class="award-org">Invited by RIBA South East London<br>Architects Group, 2024</div>
+      </div>
+      <div class="award-item reveal reveal-delay-2">
+        <div class="award-number">05</div>
+        <div class="award-title">Active Member — RIBA SELA Network</div>
+        <div class="award-org">Monthly industry discussions &amp;<br>London design networking, 2024–present</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <p class="section-label reveal">Work</p>
+    <h2 class="about-heading reveal reveal-delay-1" style="margin-bottom:48px;">Selected<br><em>Projects</em></h2>
+    <div class="portfolio-grid">
+      <div class="portfolio-item reveal">
+        <div class="portfolio-placeholder">Add project image</div>
+        <div class="portfolio-caption">
+          <div class="portfolio-caption-year">2023, Bachelor's Final Project</div>
+          <div class="portfolio-caption-title">Project Title Here</div>
+        </div>
+      </div>
+      <div class="portfolio-item reveal reveal-delay-1">
+        <div class="portfolio-placeholder">Add project image</div>
+        <div class="portfolio-caption">
+          <div class="portfolio-caption-year">2024, EastJR Studio</div>
+          <div class="portfolio-caption-title">Project Title Here</div>
+        </div>
+      </div>
+      <div class="portfolio-item reveal reveal-delay-2">
+        <div class="portfolio-placeholder">Add project image</div>
+        <div class="portfolio-caption">
+          <div class="portfolio-caption-year">2024, RCA Masters</div>
+          <div class="portfolio-caption-title">Project Title Here</div>
+        </div>
+      </div>
+      <div class="portfolio-item reveal reveal-delay-3">
+        <div class="portfolio-placeholder">Add project image</div>
+        <div class="portfolio-caption">
+          <div class="portfolio-caption-year">2025, RCA Masters</div>
+          <div class="portfolio-caption-title">Project Title Here</div>
+        </div>
+      </div>
+    </div>
+    <div class="portfolio-cta reveal reveal-delay-2">
+      <a href="portfolio.pdf" class="btn-download primary" download>
+        ↓ Download Full Portfolio
+      </a>
+      <a href="cv.pdf" class="btn-download ghost" download>
+        ↓ Download CV
+      </a>
+      <a href="bio.pdf" class="btn-download ghost" download>
+        ↓ Introduction PDF
+      </a>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-bg"></div>
+    <div class="contact-inner">
+      <p class="section-label reveal" style="color:var(--accent);">Contact</p>
+      <h2 class="contact-heading reveal reveal-delay-1">Let's make<br>something<br><em>together</em></h2>
+
+      <div class="contact-links reveal reveal-delay-2">
+        <a href="mailto:info4viola@gmail.com" class="contact-link-item">
+          <span class="contact-link-label">Email</span>
+          <span class="contact-link-value">info4viola@gmail.com</span>
+          <span class="contact-link-arrow">→</span>
+        </a>
+        <a href="https://www.linkedin.com/in/violapica/" target="_blank" rel="noopener" class="contact-link-item">
+          <span class="contact-link-label">LinkedIn</span>
+          <span class="contact-link-value">linkedin.com/in/violapica</span>
+          <span class="contact-link-arrow">→</span>
+        </a>
+        <a href="https://www.google.com/maps/place/London" target="_blank" rel="noopener" class="contact-link-item">
+          <span class="contact-link-label">Location</span>
+          <span class="contact-link-value">London, United Kingdom</span>
+          <span class="contact-link-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Viola Pica</p>
+    <p>Interior Architecture &amp; Design</p>
+    <p>MA Royal College of Art</p>
+  </footer>
+
+  <script>
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+    });
+
+    // Nav scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
