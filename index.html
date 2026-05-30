@@ -695,21 +695,80 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      nav { padding: 24px 28px; }
-      .nav-links { gap: 24px; }
-      section { padding: 80px 28px; }
-      #hero { grid-template-columns: 1fr; }
-      .hero-left { padding: 120px 28px 60px; }
+      /* NAV */
+      nav { padding: 20px 24px; flex-wrap: nowrap; }
+      .nav-logo { font-size: 11px; white-space: nowrap; }
+      .nav-links { gap: 16px; }
+      .nav-links a { font-size: 9px; letter-spacing: .12em; }
+
+      /* HERO */
+      #hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 100px 24px 56px; }
       .hero-right { display: none; }
-      #about { grid-template-columns: 1fr; gap: 48px; }
-      #education { grid-template-columns: 1fr; gap: 0; }
+      .hero-name { font-size: clamp(52px, 14vw, 80px); }
+      .hero-tagline { font-size: 13px; max-width: 100%; }
+      .award-pill { display: none; }
+      .hero-cta { flex-direction: column; gap: 16px; align-items: flex-start; }
+
+      /* ABOUT */
+      #about { grid-template-columns: 1fr; gap: 40px; padding: 72px 24px; }
+      .about-heading { font-size: clamp(32px, 9vw, 52px); }
+      .about-right { display: none; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .skill-row { padding: 0; }
+      .skill-toggle { padding: 12px 0; }
+
+      /* EXPERIENCE */
+      #experience { padding: 72px 24px; }
+      .exp-heading { font-size: clamp(28px, 8vw, 48px); }
+      .exp-item { grid-template-columns: 1fr; gap: 8px; }
+      .exp-date { font-size: 9px; }
+      .exp-tag { justify-self: start; margin-top: 8px; }
+
+      /* EDUCATION */
+      #education { padding: 72px 24px; grid-template-columns: 1fr; gap: 0; }
       #education .section-label { grid-column: 1; }
-      .exp-item { grid-template-columns: 1fr; gap: 12px; }
-      .exp-tag { justify-self: start; }
-      .awards-grid { grid-template-columns: 1fr; }
-      .award-item + .award-item { border-left: none; padding-left: 0; }
+      .edu-item { padding: 24px 0; }
+
+      /* AWARDS — single column, simple top border per item */
+      #awards { padding: 72px 24px; }
+      .awards-grid {
+        grid-template-columns: 1fr !important;
+        border-left: none;
+        border-top: none;
+      }
+      .award-item {
+        border-right: none !important;
+        border-left: none !important;
+        border-bottom: none !important;
+        border-top: 1px solid var(--rule) !important;
+        padding: 32px 0 !important;
+      }
+      .award-number { font-size: 48px; }
+
+      /* PORTFOLIO */
+      #portfolio { padding: 72px 24px; }
       .portfolio-grid { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 12px; text-align: center; }
+      .portfolio-cta { flex-direction: column; align-items: stretch; }
+      .btn-download { text-align: center; justify-content: center; }
+
+      /* CONTACT */
+      #contact { padding: 72px 24px; }
+      .contact-link-item { padding: 20px 0; }
+      .contact-link-value { font-size: 12px; }
+
+      /* FOOTER */
+      footer { flex-direction: column; gap: 8px; text-align: center; padding: 28px 24px; }
+
+      /* HIDE CAD CURSOR ON TOUCH */
+      #cad-cursor, #cad-coords { display: none; }
+      * { cursor: auto !important; }
+    }
+
+    @media (max-width: 480px) {
+      .nav-links { display: none; }
+      .hero-name { font-size: 13vw; }
+      .skills-grid { grid-template-columns: 1fr; }
     }
 
     /* ── CAD CURSOR ── */
@@ -1082,7 +1141,8 @@
   </footer>
 
   <script>
-    // CAD Cursor — smart colour switching
+    // CAD Cursor — desktop only
+    if (window.matchMedia('(pointer: fine)').matches) {
     const cadCursor = document.getElementById('cad-cursor');
     const cxEl = document.getElementById('cx');
     const cyEl = document.getElementById('cy');
@@ -1147,6 +1207,8 @@
         cadCursor.style.opacity = '1';
       });
     });
+
+    } // end cursor desktop-only block
 
     // Nav scroll
     const nav = document.getElementById('nav');
