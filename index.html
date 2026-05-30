@@ -1269,7 +1269,9 @@
       });
     });
 
-    // Hamburger menu
+    } // end cursor desktop-only block
+
+    // Hamburger menu — runs on all devices
     const hamburger = document.getElementById('nav-hamburger');
     const mobileMenu = document.getElementById('mobile-menu');
     hamburger.addEventListener('click', () => {
@@ -1283,8 +1285,6 @@
       hamburger.classList.remove('open');
       document.body.style.overflow = '';
     }
-
-    } // end cursor desktop-only block
 
     // Nav scroll
     const nav = document.getElementById('nav');
