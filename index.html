@@ -644,6 +644,143 @@
       padding-bottom: 16px;
     }
 
+    /* ── PROJECTS ACCORDION ── */
+    .projects-list {
+      border-top: 1px solid var(--rule);
+    }
+    .project-row {
+      border-bottom: 1px solid var(--rule);
+      cursor: none;
+    }
+    .project-header {
+      display: grid;
+      grid-template-columns: 160px 1fr 32px;
+      align-items: center;
+      padding: 32px 0;
+      gap: 24px;
+      transition: opacity .2s;
+    }
+    .project-row:hover .project-header { opacity: .7; }
+    .project-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .project-index {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .15em;
+      color: var(--accent);
+    }
+    .project-year {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .1em;
+      color: var(--warm-mid);
+    }
+    .project-tag {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--rule);
+      background: var(--ink);
+      display: inline-block;
+      padding: 3px 8px;
+      width: fit-content;
+    }
+    .project-title-wrap { padding-right: 24px; }
+    .project-title {
+      font-family: var(--font-display);
+      font-size: clamp(20px, 2.5vw, 30px);
+      font-weight: 300;
+      letter-spacing: .04em;
+      margin: 0 0 6px;
+    }
+    .project-subtitle {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--warm-mid);
+      margin: 0;
+    }
+    .project-toggle-icon {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      color: var(--accent);
+      transition: transform .3s ease;
+      justify-self: end;
+      line-height: 1;
+    }
+    .project-row.open .project-toggle-icon { transform: rotate(45deg); }
+    .project-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .5s ease, padding .3s ease;
+      padding-bottom: 0;
+    }
+    .project-row.open .project-body {
+      max-height: 800px;
+      padding-bottom: 48px;
+    }
+    .project-description p {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--ink);
+      margin: 0 0 28px;
+    }
+    .project-details {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border-top: 1px solid var(--rule);
+      padding-top: 20px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .08em;
+      color: var(--warm-mid);
+    }
+    .project-detail-label {
+      color: var(--accent);
+      margin-right: 12px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+    .project-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+    }
+    .project-img-slot {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+    }
+    .project-img-slot img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .5s ease;
+    }
+    .project-img-slot:hover img { transform: scale(1.04); }
+    .project-img-placeholder {
+      width: 100%; height: 100%;
+      background: #EBE4DC;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: .1em;
+      color: var(--warm-mid);
+      text-align: center;
+      padding: 8px;
+    }
+
     /* ── PORTFOLIO ── */
     #portfolio { background: var(--cream); padding: 120px 60px; }
     .portfolio-grid {
@@ -777,6 +914,12 @@
       #education .section-label { grid-column: 1; }
       .edu-item { padding: 24px 0; }
 
+      /* PROJECTS */
+      .project-header { grid-template-columns: 1fr 28px; gap: 16px; }
+      .project-meta { display: none; }
+      .project-body { grid-template-columns: 1fr; gap: 24px; }
+      .project-row.open .project-body { max-height: 1400px; }
+
       /* AWARDS — single column, simple top border per item */
       #awards { padding: 72px 24px; }
       .awards-grid {
@@ -907,9 +1050,7 @@
     <div class="hero-right">
       <div class="hero-graphic">
         <!-- Replace hero.jpg with your image file once uploaded to GitHub -->
-        <div class="hero-img-placeholder">
-          <span>Upload hero.jpg to GitHub<br>to display your image here</span>
-        </div>
+        <img src="hero.jpg" alt="Viola Pica" />
       </div>
 
       <div class="award-pill">
@@ -1130,36 +1271,175 @@
   <!-- PORTFOLIO -->
   <section id="portfolio">
     <p class="section-label reveal">Work</p>
-    <h2 class="about-heading reveal reveal-delay-1" style="margin-bottom:48px;">Selected<br><em>Projects</em></h2>
-    <div class="portfolio-grid">
-      <div class="portfolio-item reveal">
-        <div class="portfolio-placeholder">Add project image</div>
-        <div class="portfolio-caption">
-          <div class="portfolio-caption-year">2023, Bachelor's Final Project</div>
-          <div class="portfolio-caption-title">Project Title Here</div>
+    <h2 class="about-heading reveal reveal-delay-1" style="margin-bottom:56px;">Selected<br><em>Projects</em></h2>
+
+    <div class="projects-list">
+
+      <!-- PROJECT 1 -->
+      <div class="project-row reveal" onclick="toggleProject(this)">
+        <div class="project-header">
+          <div class="project-meta">
+            <span class="project-index">01</span>
+            <span class="project-year">2025–26</span>
+            <span class="project-tag">RCA MA Thesis</span>
+          </div>
+          <div class="project-title-wrap">
+            <h3 class="project-title">The Unlikely Tenant</h3>
+            <p class="project-subtitle">RCA MA Interior Design — Adaptive Reuse, Canary Wharf</p>
+          </div>
+          <span class="project-toggle-icon">+</span>
+        </div>
+        <div class="project-body">
+          <div class="project-description">
+            <p>A proposal to transform Foster + Partners' 1999 office tower at 33 Canada Square into a civic interior — inserting artist studios, joinery workshops, exhibition spaces and informal working areas across 18 floors of a building facing increasing redundancy. The project responds directly to Canary Wharf's shifting identity: with office vacancy rising and footfall increasingly non-corporate, it questions who the city is for and proposes craft and culture as a new ground floor logic. Developed as part of the RCA's SuperReuse 25–26 brief. Explores material reuse, salvage, and the idea that imperfection is a design resource rather than a problem to solve.</p>
+            <div class="project-details">
+              <div><span class="project-detail-label">Location</span>Canary Wharf, London</div>
+              <div><span class="project-detail-label">Programme</span>Artist studios, joinery workshops, exhibition space, civic interior</div>
+              <div><span class="project-detail-label">Brief</span>RCA SuperReuse 25–26</div>
+              <div><span class="project-detail-label">Status</span>Academic — in progress</div>
+            </div>
+          </div>
+          <div class="project-images">
+            <div class="project-img-slot"><div class="project-img-placeholder">unlikely-tenant-1.jpg</div></div>
+            <div class="project-img-slot"><div class="project-img-placeholder">unlikely-tenant-2.jpg</div></div>
+            <div class="project-img-slot"><div class="project-img-placeholder">unlikely-tenant-3.jpg</div></div>
+            <div class="project-img-slot"><div class="project-img-placeholder">unlikely-tenant-4.jpg</div></div>
+          </div>
         </div>
       </div>
-      <div class="portfolio-item reveal reveal-delay-1">
-        <div class="portfolio-placeholder">Add project image</div>
-        <div class="portfolio-caption">
-          <div class="portfolio-caption-year">2024, EastJR Studio</div>
-          <div class="portfolio-caption-title">Project Title Here</div>
+
+      <!-- PROJECT 2 -->
+      <div class="project-row reveal" onclick="toggleProject(this)">
+        <div class="project-header">
+          <div class="project-meta">
+            <span class="project-index">02</span>
+            <span class="project-year">2025</span>
+            <span class="project-tag">Built</span>
+          </div>
+          <div class="project-title-wrap">
+            <h3 class="project-title">Yumtea</h3>
+            <p class="project-subtitle">EastJR Studio — Commercial Interior Fit-Out, High Holborn</p>
+          </div>
+          <span class="project-toggle-icon">+</span>
+        </div>
+        <div class="project-body">
+          <div class="project-description">
+            <p>A contemporary Asian bakery and tea shop in High Holborn, delivered from initial concept through to completion as Design Assistant at EastJR. The brief was to create a refined, compact retail and café experience using warm materiality — cherry veneer, stainless steel, reeded glass and soft track lighting — while developing a refreshed visual identity distinct from the client's existing location. Responsibilities spanned client liaison, site surveys, 2D technical drawing production, material coordination, shopfront vinyl and branding graphics design, and on-site installation support. Completed March 2025.</p>
+            <div class="project-details">
+              <div><span class="project-detail-label">Location</span>High Holborn, London</div>
+              <div><span class="project-detail-label">Role</span>Design Assistant, EastJR</div>
+              <div><span class="project-detail-label">Scope</span>Concept to completion — technical drawings, branding, on-site delivery</div>
+              <div><span class="project-detail-label">Status</span>Built, completed March 2025</div>
+            </div>
+          </div>
+          <div class="project-images">
+            <div class="project-img-slot"><div class="project-img-placeholder">yumtea-1.jpg</div></div>
+            <div class="project-img-slot"><div class="project-img-placeholder">yumtea-2.jpg</div></div>
+            <div class="project-img-slot"><div class="project-img-placeholder">yumtea-3.jpg</div></div>
+            <div class="project-img-slot"><div class="project-img-placeholder">yumtea-4.jpg</div></div>
+          </div>
         </div>
       </div>
-      <div class="portfolio-item reveal reveal-delay-2">
-        <div class="portfolio-placeholder">Add project image</div>
-        <div class="portfolio-caption">
-          <div class="portfolio-caption-year">2024, RCA Masters</div>
-          <div class="portfolio-caption-title">Project Title Here</div>
+
+      <!-- PROJECT 3 -->
+      <div class="project-row reveal" onclick="toggleProject(this)">
+        <div class="project-header">
+          <div class="project-meta">
+            <span class="project-index">03</span>
+            <span class="project-year">2025</span>
+            <span class="project-tag">Built</span>
+          </div>
+          <div class="project-title-wrap">
+            <h3 class="project-title">Triptych — Nagare Coffee</h3>
+            <p class="project-subtitle">EastJR Studio — Commercial Interior Fit-Out, London Bridge</p>
+          </div>
+          <span class="project-toggle-icon">+</span>
+        </div>
+        <div class="project-body">
+          <div class="project-description">
+            <p>Full interior design and technical delivery for Nagare Coffee's newest flagship café across 162m² at Triptych Bankside, a recently completed mixed-use development at London Bridge. The challenge was to translate the atmosphere of Nagare's original location — Japanese minimalism, slow-living, material warmth — into a space that sits within a contrasting contemporary development. Responsibilities covered RIBA stages 0–4, client meetings and surveys, 2D technical drawings, MEP coordination, bespoke joinery documentation, presentation packages and construction photography. Completed March 2025.</p>
+            <div class="project-details">
+              <div><span class="project-detail-label">Location</span>Triptych Bankside, London Bridge</div>
+              <div><span class="project-detail-label">Role</span>Design Assistant, EastJR</div>
+              <div><span class="project-detail-label">Scope</span>RIBA stages 0–4, joinery docs, MEP, photography</div>
+              <div><span class="project-detail-label">Status</span>Built, completed March 2025</div>
+            </div>
+          </div>
+          <div class="project-images">
+            <div class="project-img-slot"><div class="project-img-placeholder">triptych-1.jpg</div></div>
+            <div class="project-img-slot"><div class="project-img-placeholder">triptych-2.jpg</div></div>
+            <div class="project-img-slot"><div class="project-img-placeholder">triptych-3.jpg</div></div>
+            <div class="project-img-slot"><div class="project-img-placeholder">triptych-4.jpg</div></div>
+          </div>
         </div>
       </div>
-      <div class="portfolio-item reveal reveal-delay-3">
-        <div class="portfolio-placeholder">Add project image</div>
-        <div class="portfolio-caption">
-          <div class="portfolio-caption-year">2025, RCA Masters</div>
-          <div class="portfolio-caption-title">Project Title Here</div>
+
+      <!-- PROJECT 4 -->
+      <div class="project-row reveal" onclick="toggleProject(this)">
+        <div class="project-header">
+          <div class="project-meta">
+            <span class="project-index">04</span>
+            <span class="project-year">2023</span>
+            <span class="project-tag">RIBA First Prize, Ravensbourne</span>
+          </div>
+          <div class="project-title-wrap">
+            <h3 class="project-title">Story of Storeys</h3>
+            <p class="project-subtitle">Ravensbourne University, Final Year — Adaptive Reuse, Catford</p>
+          </div>
+          <span class="project-toggle-icon">+</span>
+        </div>
+        <div class="project-body">
+          <div class="project-description">
+            <p>Final Major Project at Ravensbourne University. The Catford Constitutional Club, a locally listed Georgian and Victorian structure dating to the 1700s, is given new life as an Art Centre: café, art shop, artist studios, seminar room and exhibition spaces structured around stories from Dino Buzzati's book The Mystery Boutique. Each exhibition room is spatially conceived from a different story — the "architecturalisation of fiction" — making the building itself a narrative device. The project received the RIBA First Prize for Best Final Major Project 2023, was published on Dezeen, and was shortlisted for the IE Craft Excellence Recognition Awards. Delivered with full technical drawings, construction section details, environmental strategy and a 1:25 physical model.</p>
+            <div class="project-details">
+              <div><span class="project-detail-label">Location</span>Catford, London</div>
+              <div><span class="project-detail-label">Programme</span>Art centre, café, studios, exhibition spaces</div>
+              <div><span class="project-detail-label">Recognition</span>RIBA First Prize 2023, Dezeen, IE Craft Excellence shortlist</div>
+              <div><span class="project-detail-label">Status</span>Academic — Final Major Project, Ravensbourne University</div>
+            </div>
+          </div>
+          <div class="project-images">
+            <div class="project-img-slot"><div class="project-img-placeholder">story-of-storeys-1.jpg</div></div>
+            <div class="project-img-slot"><div class="project-img-placeholder">story-of-storeys-2.jpg</div></div>
+            <div class="project-img-slot"><div class="project-img-placeholder">story-of-storeys-3.jpg</div></div>
+            <div class="project-img-slot"><div class="project-img-placeholder">story-of-storeys-4.jpg</div></div>
+          </div>
         </div>
       </div>
+
+      <!-- PROJECT 5 -->
+      <div class="project-row reveal" onclick="toggleProject(this)">
+        <div class="project-header">
+          <div class="project-meta">
+            <span class="project-index">05</span>
+            <span class="project-year">2022</span>
+            <span class="project-tag">Competition Entry</span>
+          </div>
+          <div class="project-title-wrap">
+            <h3 class="project-title">Emerging Views</h3>
+            <p class="project-subtitle">Ravensbourne University, Competition Entry — Mývatn, Iceland</p>
+          </div>
+          <span class="project-toggle-icon">+</span>
+        </div>
+        <div class="project-body">
+          <div class="project-description">
+            <p>Competition entry for a cinema pavilion celebrating Icelandic film history, sited on the volcanic rift near Mývatn Lake in northern Iceland. The design responds to the dramatic dichotomy of the Icelandic landscape — volcanoes against glaciers, open tundra against fractured earth — treating the pavilion as a continuous framing device: every space and corridor is oriented to curate a view. Materials respond directly to context and climate: turf roofs referencing traditional Icelandic farmhouse construction, rammed earth walls for thermal mass and low embodied carbon, light timber interiors to emphasise diffuse northern light. Floor plan organised as reception, cinema room and gallery passageway, each with distinct spatial character.</p>
+            <div class="project-details">
+              <div><span class="project-detail-label">Location</span>Mývatn, Iceland</div>
+              <div><span class="project-detail-label">Programme</span>Cinema, gallery passageway, café, reception</div>
+              <div><span class="project-detail-label">Materials</span>Turf roof, rammed earth, timber</div>
+              <div><span class="project-detail-label">Status</span>Academic — competition entry, Ravensbourne University</div>
+            </div>
+          </div>
+          <div class="project-images">
+            <div class="project-img-slot"><div class="project-img-placeholder">emerging-views-1.jpg</div></div>
+            <div class="project-img-slot"><div class="project-img-placeholder">emerging-views-2.jpg</div></div>
+            <div class="project-img-slot"><div class="project-img-placeholder">emerging-views-3.jpg</div></div>
+            <div class="project-img-slot"><div class="project-img-placeholder">emerging-views-4.jpg</div></div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -1298,6 +1578,13 @@
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
     }, { threshold: 0.12 });
     reveals.forEach(el => io.observe(el));
+    // Project accordion
+    function toggleProject(row) {
+      const isOpen = row.classList.contains('open');
+      document.querySelectorAll('.project-row.open').forEach(r => r.classList.remove('open'));
+      if (!isOpen) row.classList.add('open');
+    }
+
     // Skill dropdowns
     function toggleSkill(btn) {
       const row = btn.closest('.skill-row');
