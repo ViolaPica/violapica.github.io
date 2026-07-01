@@ -49,6 +49,19 @@
       letter-spacing: .04em;
     }
 
+    .mobile-menu-close {
+      position: absolute;
+      top: 28px;
+      right: 28px;
+      font-size: 24px;
+      color: var(--ink);
+      background: none;
+      border: none;
+      cursor: pointer;
+      line-height: 1;
+      padding: 8px;
+    }
+
     /* ── HAMBURGER & MOBILE MENU ── */
     .nav-hamburger {
       display: none;
@@ -408,12 +421,13 @@
       grid-template-columns: 1fr 1fr;
       gap: 80px;
     }
-    #education .section-label { grid-column: 1/-1; margin-bottom: 0; }
+    #education .section-label { grid-column: 1/-1; margin-bottom: 32px; }
 
     .edu-item {
       padding: 40px 0;
-      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
     }
+    .edu-item:first-of-type { border-top: none; }
     .edu-degree {
       font-size: 24px;
       font-weight: 400;
@@ -442,7 +456,6 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 0;
-      border-top: 1px solid var(--rule);
       border-left: 1px solid var(--rule);
       margin-top: 32px;
     }
@@ -886,13 +899,16 @@
       .nav-hamburger { display: flex; }
 
       /* HERO */
-      #hero { grid-template-columns: 1fr; min-height: auto; }
-      .hero-left { padding: 100px 24px 56px; }
-      .hero-right { display: none; }
+      #hero { grid-template-columns: 1fr; min-height: auto; display: flex; flex-direction: column; }
+      .hero-left { padding: 40px 24px 56px; order: 2; }
+      .hero-right { display: block; order: 1; height: 320px; position: relative; flex-shrink: 0; }
+      .hero-graphic { position: absolute; inset: 0; }
+      .hero-graphic img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
       .hero-name { font-size: clamp(52px, 14vw, 80px); }
       .hero-tagline { font-size: 13px; max-width: 100%; }
       .award-pill { display: none; }
       .hero-cta { flex-direction: column; gap: 16px; align-items: flex-start; }
+      .section-label::after { display: none; }
 
       /* ABOUT */
       #about { grid-template-columns: 1fr; gap: 40px; padding: 72px 24px; }
@@ -960,6 +976,19 @@
       .skills-grid { grid-template-columns: 1fr; }
     }
 
+    .btn-download { border: none; }
+    .btn-coming-soon {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .12em;
+      color: var(--accent);
+      margin-top: 10px;
+      display: block;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .btn-coming-soon.visible { opacity: 1; }
+
     /* ── CAD CURSOR ── */
     * { cursor: none !important; }
     #cad-cursor {
@@ -1012,9 +1041,9 @@
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#experience">Experience</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
       <li><a href="#education">Education</a></li>
       <li><a href="#awards">Recognition</a></li>
-      <li><a href="#portfolio">Portfolio</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
@@ -1024,12 +1053,13 @@
 
   <!-- Mobile menu overlay -->
   <div class="mobile-menu" id="mobile-menu">
+    <button class="mobile-menu-close" onclick="closeMenu()" aria-label="Close menu">&#x2715;</button>
     <ul>
       <li><a href="#about" onclick="closeMenu()">About</a></li>
       <li><a href="#experience" onclick="closeMenu()">Experience</a></li>
+      <li><a href="#portfolio" onclick="closeMenu()">Portfolio</a></li>
       <li><a href="#education" onclick="closeMenu()">Education</a></li>
       <li><a href="#awards" onclick="closeMenu()">Recognition</a></li>
-      <li><a href="#portfolio" onclick="closeMenu()">Portfolio</a></li>
       <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
     </ul>
   </div>
@@ -1039,7 +1069,7 @@
     <div class="hero-left">
       <p class="hero-eyebrow">Interior Architecture &amp; Design, London</p>
       <h1 class="hero-name">Viola<br><em>Pica</em></h1>
-      <p class="hero-tagline">MA Interior Design, Royal College of Art. BA Hons Interior Design &amp; Environmental Architecture, Ravensbourne University. Rooted in Rome and Venice, practising in London, with a passion for craft, atmosphere and spatial narrative.</p>
+      <p class="hero-tagline">MA Interior Design, Royal College of Art. BA Hons Interior Design &amp; Environmental Architecture, Ravensbourne University. Two years of studio and joinery practice. Rooted in Rome and Venice, with a passion for craft, sustainability, and spatial narrative.</p>
       <div class="hero-cta">
         <a href="#portfolio" class="btn-primary">View Work</a>
         <a href="#contact" class="hero-scroll">Get in touch ↓</a>
@@ -1068,7 +1098,7 @@
       <h2 class="about-heading reveal reveal-delay-1">Design rooted in<br><em>storytelling &amp; curiosity</em></h2>
       <p class="about-body reveal reveal-delay-2">I'm Viola, an Italian-born interior and architectural designer finishing my MA at the Royal College of Art. My eye for space was shaped early: growing up between Rome's layered architecture and the frequent visits to the Biennales of Venice, design was never abstract. It was always somewhere you could stand inside and feel.</p>
       <p class="about-body reveal reveal-delay-2">Educated at the American Overseas School of Rome, I bring a bilingual, cross-cultural perspective to everything I make. My practice sits at the intersection of spatial narrative, material honesty, and renovation: the belief that existing buildings hold stories worth continuing rather than erasing.</p>
-      <p class="about-body reveal reveal-delay-2">Beyond the studio I work hands-on: MEP drawings, bespoke joinery documentation, on-site coordination and photoshoots at EastJR have made me just as comfortable on a building site as at a drawing board. Outside of work: acrobatic gymnastics, glassblowing, and a long-standing interest in neuropsychology, which feeds directly into how I think about the human experience of space.</p>
+      <p class="about-body reveal reveal-delay-2">Beyond the studio I have worked hands-on: MEP drawings, bespoke joinery documentation, on-site coordination and photoshoots at EastJR made me just as comfortable on a building site as at a drawing board. Outside of work: acrobatic gymnastics, glassblowing, and a long-standing interest in neuropsychology, which feeds directly into how I think about the human experience of space.</p>
 
       <p class="skills-heading reveal reveal-delay-3">Software &amp; Technical</p>
       <div class="skills-proficiency reveal reveal-delay-3">
@@ -1143,7 +1173,7 @@
       <p class="skills-heading reveal reveal-delay-3" style="margin-top:32px;">Systems &amp; Workflow</p>
       <div class="skills-grid reveal reveal-delay-3">
         <div class="skill-item">File Organisation &amp; Optimisation</div>
-        <div class="skill-item">Apple / macOS Ecosystem</div>
+        <div class="skill-item">macOS Ecosystem</div>
         <div class="skill-item">Productivity Tooling</div>
         <div class="skill-item">Digital Workflow Design</div>
       </div>
@@ -1182,13 +1212,13 @@
 
     <div class="exp-list">
       <div class="exp-item reveal">
-        <div class="exp-date">May 2024 –<br>Present</div>
+        <div class="exp-date">May 2024 –<br>Mar 2026</div>
         <div>
           <div class="exp-title">Design &amp; Studio Assistant</div>
           <div class="exp-company">EastJR, Bethnal Green, London</div>
           <div class="exp-desc">End-to-end studio involvement across design, production and client relations. Produces MEP technical drawings and detailed joinery documentation; develops 3D models for bespoke joinery and interior packages; manages material samples and supplier communications. Coordinates professional photoshoots, content creation and website updates. On-site installation oversight and client meeting support throughout project delivery.</div>
         </div>
-        <div class="exp-tag">Current</div>
+        <div class="exp-tag">2024–2026</div>
       </div>
 
       <div class="exp-item reveal reveal-delay-1">
@@ -1209,61 +1239,6 @@
           <div class="exp-desc">Structured mentoring scheme pairing students with practising architects. Construction site visits to live projects and completed works; hands-on insight into project management, architectural workflows and the journey from design intent to built outcome.</div>
         </div>
         <div class="exp-tag">RIBA</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- EDUCATION -->
-  <section id="education">
-    <p class="section-label reveal">Education</p>
-
-    <div class="edu-item reveal">
-      <div class="edu-degree">MA Interior Design</div>
-      <div class="edu-school">Royal College of Art, London</div>
-      <div class="edu-year">2025 – 2026</div>
-    </div>
-
-    <div class="edu-item reveal reveal-delay-1">
-      <div class="edu-degree">BA (Hons) Interior Design<br>&amp; Environmental Architecture</div>
-      <div class="edu-school">Ravensbourne University London, ARB Part 1 / RIBA Part 1</div>
-      <div class="edu-year">2020 – 2023</div>
-    </div>
-
-    <div class="edu-item reveal reveal-delay-2">
-      <div class="edu-degree">International Baccalaureate</div>
-      <div class="edu-school">American Overseas School of Rome</div>
-      <div class="edu-year">IB Diploma Programme</div>
-    </div>
-  </section>
-
-  <!-- AWARDS -->
-  <section id="awards">
-    <p class="section-label reveal">Recognition</p>
-    <div class="awards-grid" style="grid-template-columns: repeat(3,1fr);">
-      <div class="award-item reveal">
-        <div class="award-number">01</div>
-        <div class="award-title">RIBA First Prize, Student Awards</div>
-        <div class="award-org">RIBA South East London Architects Group<br>Best Final Major Project, 2023</div>
-      </div>
-      <div class="award-item reveal reveal-delay-1">
-        <div class="award-number">02</div>
-        <div class="award-title">Published on Dezeen</div>
-        <div class="award-org">Final Major Project featured<br>dezeen.com, July 2023</div>
-      </div>
-      <div class="award-item reveal reveal-delay-2">
-        <div class="award-number">03</div>
-        <div class="award-title">Craft Excellence, Shortlisted</div>
-        <div class="award-org">Interior Educators (IE) Summer Show<br>OXO Barge House, South Bank, 2023</div>
-      </div>
-      <div class="award-item reveal reveal-delay-1">
-        <div class="award-number">04</div>
-        <div class="award-title">RIBA SELA End-of-Year Show Judge</div>
-        <div class="award-org">Invited by RIBA South East London<br>Architects Group, 2024</div>
-      </div>
-      <div class="award-item reveal reveal-delay-2">
-        <div class="award-number">05</div>
-        <div class="award-title">Active Member — RIBA SELA Network</div>
-        <div class="award-org">Monthly industry discussions &amp;<br>London design networking, 2024–present</div>
       </div>
     </div>
   </section>
@@ -1443,6 +1418,61 @@
     </div>
   </section>
 
+  <!-- EDUCATION -->
+  <section id="education">
+    <p class="section-label reveal">Education</p>
+
+    <div class="edu-item reveal">
+      <div class="edu-degree">MA Interior Design</div>
+      <div class="edu-school">Royal College of Art, London</div>
+      <div class="edu-year">2025 – 2026</div>
+    </div>
+
+    <div class="edu-item reveal reveal-delay-1">
+      <div class="edu-degree">BA (Hons) Interior Design<br>&amp; Environmental Architecture</div>
+      <div class="edu-school">Ravensbourne University London, ARB Part 1 / RIBA Part 1</div>
+      <div class="edu-year">2020 – 2023</div>
+    </div>
+
+    <div class="edu-item reveal reveal-delay-2">
+      <div class="edu-degree">International Baccalaureate</div>
+      <div class="edu-school">American Overseas School of Rome</div>
+      <div class="edu-year">IB Diploma Programme</div>
+    </div>
+  </section>
+
+  <!-- AWARDS -->
+  <section id="awards">
+    <p class="section-label reveal">Recognition</p>
+    <div class="awards-grid" style="grid-template-columns: repeat(3,1fr);">
+      <div class="award-item reveal">
+        <div class="award-number">01</div>
+        <div class="award-title">RIBA First Prize, Student Awards</div>
+        <div class="award-org">RIBA South East London Architects Group<br>Best Final Major Project, 2023</div>
+      </div>
+      <div class="award-item reveal reveal-delay-1">
+        <div class="award-number">02</div>
+        <div class="award-title">Published on Dezeen</div>
+        <div class="award-org">Final Major Project featured<br>dezeen.com, July 2023</div>
+      </div>
+      <div class="award-item reveal reveal-delay-2">
+        <div class="award-number">03</div>
+        <div class="award-title">Craft Excellence, Shortlisted</div>
+        <div class="award-org">Interior Educators (IE) Summer Show<br>OXO Barge House, South Bank, 2023</div>
+      </div>
+      <div class="award-item reveal reveal-delay-1">
+        <div class="award-number">04</div>
+        <div class="award-title">RIBA SELA End-of-Year Show Judge</div>
+        <div class="award-org">Invited by RIBA South East London<br>Architects Group, 2024</div>
+      </div>
+      <div class="award-item reveal reveal-delay-2">
+        <div class="award-number">05</div>
+        <div class="award-title">Active Member — RIBA SELA Network</div>
+        <div class="award-org">Monthly industry discussions &amp;<br>London design networking, 2024–present</div>
+      </div>
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section id="contact">
     <div class="contact-bg"></div>
@@ -1468,9 +1498,9 @@
       </div>
 
       <div class="portfolio-cta reveal reveal-delay-2" style="margin-top:56px;">
-        <a href="portfolio.pdf" class="btn-download primary" target="_blank" rel="noopener">↗ View Portfolio</a>
+        <button class="btn-download primary" onclick="showComingSoon(this, 'Portfolio in progress — check back soon.')">↗ View Portfolio</button>
         <a href="cv.pdf" class="btn-download ghost" target="_blank" rel="noopener">↗ View CV</a>
-        <a href="bio.pdf" class="btn-download ghost" target="_blank" rel="noopener">↗ View Introduction</a>
+        <button class="btn-download ghost" onclick="showComingSoon(this, 'Introduction PDF coming soon.')">↗ View Introduction</button>
       </div>
     </div>
   </section>
@@ -1578,6 +1608,18 @@
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
     }, { threshold: 0.12 });
     reveals.forEach(el => io.observe(el));
+    // Coming soon buttons
+    function showComingSoon(btn, msg) {
+      // Remove any existing messages
+      document.querySelectorAll('.btn-coming-soon').forEach(el => el.remove());
+      const note = document.createElement('span');
+      note.className = 'btn-coming-soon';
+      note.textContent = msg;
+      btn.parentNode.insertBefore(note, btn.nextSibling);
+      requestAnimationFrame(() => note.classList.add('visible'));
+      setTimeout(() => { note.classList.remove('visible'); setTimeout(() => note.remove(), 300); }, 3000);
+    }
+
     // Project accordion
     function toggleProject(row) {
       const isOpen = row.classList.contains('open');
