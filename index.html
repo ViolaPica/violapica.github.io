@@ -769,9 +769,28 @@
       grid-template-columns: 1fr 1fr;
       gap: 3px;
     }
+    .project-images.single {
+      grid-template-columns: 1fr;
+    }
+    .project-images.single .project-img-slot {
+      aspect-ratio: 16/9;
+    }
     .project-img-slot {
       aspect-ratio: 4/3;
       overflow: hidden;
+    }
+    .projects-note {
+      margin-top: 48px;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: .04em;
+      color: var(--warm-mid);
+    }
+    .projects-note a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
     .project-img-slot img {
       width: 100%; height: 100%;
@@ -1273,11 +1292,8 @@
               <div><span class="project-detail-label">Status</span>Academic — RCA, 2025/26</div>
             </div>
           </div>
-          <div class="project-images">
-            <div class="project-img-slot"><div class="project-img-placeholder">unlikely-tenant-1.jpg</div></div>
+          <div class="project-images single">
             <div class="project-img-slot"><img src="unlikely-tenant-2.webp" alt="The Unlikely Tenant — concept sketch" loading="lazy" /></div>
-            <div class="project-img-slot"><img src="unlikely-tenant-3.webp" alt="The Unlikely Tenant — interior view" loading="lazy" /></div>
-            <div class="project-img-slot"><div class="project-img-placeholder">unlikely-tenant-4.jpg</div></div>
           </div>
         </div>
       </div>
@@ -1306,11 +1322,8 @@
               <div><span class="project-detail-label">Status</span>Built, completed March 2025</div>
             </div>
           </div>
-          <div class="project-images">
-            <div class="project-img-slot"><img src="yumtea-1.webp" alt="Yumtea — counter and shelving" loading="lazy" /></div>
+          <div class="project-images single">
             <div class="project-img-slot"><img src="yumtea-2.webp" alt="Yumtea — shopfront" loading="lazy" /></div>
-            <div class="project-img-slot"><img src="yumtea-3.webp" alt="Yumtea — interior detail" loading="lazy" /></div>
-            <div class="project-img-slot"><img src="yumtea-4.webp" alt="Yumtea — proposed floor plan" loading="lazy" /></div>
           </div>
         </div>
       </div>
@@ -1339,11 +1352,8 @@
               <div><span class="project-detail-label">Status</span>Built, completed March 2025</div>
             </div>
           </div>
-          <div class="project-images">
+          <div class="project-images single">
             <div class="project-img-slot"><img src="triptych-1.webp" alt="Triptych — Nagare Coffee interior" loading="lazy" /></div>
-            <div class="project-img-slot"><img src="triptych-2.webp" alt="Triptych — Nagare Coffee interior" loading="lazy" /></div>
-            <div class="project-img-slot"><img src="triptych-3.webp" alt="Triptych — Nagare Coffee interior" loading="lazy" /></div>
-            <div class="project-img-slot"><img src="triptych-4.webp" alt="Triptych — Nagare Coffee interior" loading="lazy" /></div>
           </div>
         </div>
       </div>
@@ -1372,11 +1382,8 @@
               <div><span class="project-detail-label">Status</span>Academic — Final Major Project, Ravensbourne University</div>
             </div>
           </div>
-          <div class="project-images">
+          <div class="project-images single">
             <div class="project-img-slot"><img src="story-of-storeys-1.webp" alt="Story of Storeys" loading="lazy" /></div>
-            <div class="project-img-slot"><div class="project-img-placeholder">story-of-storeys-2.jpg</div></div>
-            <div class="project-img-slot"><img src="story-of-storeys-3.webp" alt="Story of Storeys" loading="lazy" /></div>
-            <div class="project-img-slot"><img src="story-of-storeys-4.webp" alt="Story of Storeys" loading="lazy" /></div>
           </div>
         </div>
       </div>
@@ -1405,16 +1412,16 @@
               <div><span class="project-detail-label">Status</span>Academic — competition entry, Ravensbourne University</div>
             </div>
           </div>
-          <div class="project-images">
+          <div class="project-images single">
             <div class="project-img-slot"><div class="project-img-placeholder">emerging-views-1.jpg</div></div>
-            <div class="project-img-slot"><div class="project-img-placeholder">emerging-views-2.jpg</div></div>
-            <div class="project-img-slot"><div class="project-img-placeholder">emerging-views-3.jpg</div></div>
-            <div class="project-img-slot"><div class="project-img-placeholder">emerging-views-4.jpg</div></div>
           </div>
         </div>
       </div>
 
     </div>
+
+    <p class="projects-note reveal">For the full picture, <a href="#contact">view the portfolio</a></p>
+
   </section>
 
   <!-- EDUCATION -->
