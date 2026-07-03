@@ -775,6 +775,13 @@
     .project-images.single .project-img-slot {
       aspect-ratio: 16/9;
     }
+    .project-images.single.tall .project-img-slot {
+      aspect-ratio: 3/4;
+    }
+    .project-images.single.tall .project-img-slot img {
+      object-fit: contain;
+      background: var(--rule);
+    }
     .project-img-slot {
       aspect-ratio: 4/3;
       overflow: hidden;
@@ -795,6 +802,7 @@
     .project-img-slot img {
       width: 100%; height: 100%;
       object-fit: cover;
+      object-position: center 30%;
       display: block;
       transition: transform .5s ease;
     }
@@ -1412,8 +1420,8 @@
               <div><span class="project-detail-label">Status</span>Academic — competition entry, Ravensbourne University</div>
             </div>
           </div>
-          <div class="project-images single">
-            <div class="project-img-slot"><div class="project-img-placeholder">emerging-views-1.jpg</div></div>
+          <div class="project-images single tall">
+            <div class="project-img-slot"><img src="emerging-views-1.webp" alt="Emerging Views — concept sketches" loading="lazy" /></div>
           </div>
         </div>
       </div>
