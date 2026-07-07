@@ -293,12 +293,12 @@
     #about {
       display: block;
     }
-    .about-photo-standalone {
+    .about-photo-wrap {
       width: 100%;
-      max-width: 320px;
-      margin: 0 auto 72px;
+      max-width: 280px;
+      margin-bottom: 48px;
     }
-    .about-photo-standalone img {
+    .about-photo-wrap img {
       width: 100%;
       aspect-ratio: 4/5;
       object-fit: cover;
@@ -950,9 +950,10 @@
       /* ABOUT */
       #about { padding: 72px 24px; }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
-      .about-photo-standalone { max-width: 220px; margin-bottom: 48px; }
       .about-heading { font-size: clamp(32px, 9vw, 52px); }
-      .about-right { display: none; }
+      .about-right { display: block; order: -1; }
+      .about-right .stat-stack { display: none; }
+      .about-photo-wrap { max-width: 200px; margin: 0 auto 8px; }
       .skills-grid { grid-template-columns: 1fr 1fr; }
       .skill-row { padding: 0; }
       .skill-toggle { padding: 12px 0; }
@@ -1053,6 +1054,7 @@
     }
     #cad-coords .coord-label { color: var(--accent); }
   </style>
+  <script data-goatcounter="https://violapica.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
 
@@ -1131,9 +1133,6 @@
 
   <!-- ABOUT -->
   <section id="about">
-    <div class="about-photo-standalone reveal">
-      <img src="hero.jpg" alt="Viola Pica" />
-    </div>
     <div class="about-grid">
     <div class="about-left">
       <p class="section-label reveal">Profile</p>
@@ -1222,6 +1221,9 @@
     </div>
 
     <div class="about-right reveal reveal-delay-2">
+      <div class="about-photo-wrap">
+        <img src="hero.jpg" alt="Viola Pica" />
+      </div>
       <div class="stat-stack">
         <div class="stat-item">
           <div class="stat-number">RCA</div>
