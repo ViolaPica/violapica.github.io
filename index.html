@@ -229,7 +229,7 @@
     .hero-graphic img {
       width: 100%; height: 100%;
       object-fit: cover;
-      object-position: center 20%;
+      object-position: center center;
       display: block;
       opacity: 0;
       animation: fadeIn 1.2s .4s ease forwards;
@@ -291,30 +291,25 @@
 
     /* ── ABOUT ── */
     #about {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: start;
+      display: block;
     }
-    .about-photo-wrap {
+    .about-photo-standalone {
       width: 100%;
-      max-width: 220px;
-      margin-bottom: 40px;
+      max-width: 320px;
+      margin: 0 auto 72px;
     }
-    .about-photo-wrap img {
+    .about-photo-standalone img {
       width: 100%;
       aspect-ratio: 4/5;
       object-fit: cover;
       object-position: center 25%;
       display: block;
     }
-    .about-photo-caption {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--warm-mid);
-      margin-top: 10px;
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
     }
     .about-left {}
     .about-heading {
@@ -675,7 +670,7 @@
       padding-bottom: 0;
     }
     .skill-row.open .skill-desc {
-      max-height: 120px;
+      max-height: 170px;
       padding-bottom: 16px;
     }
 
@@ -953,7 +948,9 @@
       .section-label::after { display: none; }
 
       /* ABOUT */
-      #about { grid-template-columns: 1fr; gap: 40px; padding: 72px 24px; }
+      #about { padding: 72px 24px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-photo-standalone { max-width: 220px; margin-bottom: 48px; }
       .about-heading { font-size: clamp(32px, 9vw, 52px); }
       .about-right { display: none; }
       .skills-grid { grid-template-columns: 1fr 1fr; }
@@ -1134,11 +1131,11 @@
 
   <!-- ABOUT -->
   <section id="about">
+    <div class="about-photo-standalone reveal">
+      <img src="hero.jpg" alt="Viola Pica" />
+    </div>
+    <div class="about-grid">
     <div class="about-left">
-      <div class="about-photo-wrap reveal">
-        <img src="hero.jpg" alt="Viola Pica" />
-        <p class="about-photo-caption">Viola Pica</p>
-      </div>
       <p class="section-label reveal">Profile</p>
       <h2 class="about-heading reveal reveal-delay-1">Design rooted in<br><em>storytelling &amp; curiosity</em></h2>
       <p class="about-body reveal reveal-delay-2">I'm Viola, an Italian-born interior and architectural designer finishing my MA at the Royal College of Art. My eye for space was shaped early: growing up between Rome's layered architecture and the frequent visits to the Biennales of Venice, design was never abstract. It was always somewhere you could stand inside and feel.</p>
@@ -1151,7 +1148,7 @@
           <button class="skill-toggle" onclick="toggleSkill(this)">
             <span class="skill-name">Rhino 3D</span><span class="skill-plus">+</span>
           </button>
-          <div class="skill-desc">My primary environment. Beyond modelling I work with a personalised alias and keyboard shortcut set, and use Food4Rhino integrations including RhinoAiMCP and RavenAI. Comfortable across surface modelling, bespoke joinery geometry, spatial studies, and producing contractor-ready design packages.</div>
+          <div class="skill-desc">My primary environment, modelling in NURBS — mathematically continuous surfaces — for precise, curved and complex geometry during design development. Work with a personalised alias and keyboard shortcut set, plus Food4Rhino integrations including RhinoAiMCP and RavenAI. Comfortable across surface modelling, bespoke joinery geometry, spatial studies, and extracting contractor-ready 2D drawings via Make2D.</div>
         </div>
         <div class="skill-row">
           <button class="skill-toggle" onclick="toggleSkill(this)">
@@ -1193,13 +1190,13 @@
           <button class="skill-toggle" onclick="toggleSkill(this)">
             <span class="skill-name">AutoCAD</span><span class="skill-plus">+</span>
           </button>
-          <div class="skill-desc">The industry standard for 2D technical drawing and the common language of file exchange between architects, engineers and contractors. DWG/DXF formats underpin most inter-disciplinary coordination workflows in London practice — currently developing working proficiency.</div>
+          <div class="skill-desc">The industry standard for 2D technical drawing and the common language of file exchange between architects, engineers and contractors. DWG/DXF formats underpin most inter-disciplinary coordination workflows in London practice. Comfortable navigating and producing drawings, with ongoing focus on production-level documentation standards.</div>
         </div>
         <div class="skill-row">
           <button class="skill-toggle" onclick="toggleSkill(this)">
             <span class="skill-name">Revit</span><span class="skill-plus">+</span>
           </button>
-          <div class="skill-desc">BIM software used by most London practices for coordinated, data-rich models shared across architecture, structure and MEP disciplines. Familiar with its parametric logic and file environment. Actively building proficiency — aware of its central role in project delivery at scale.</div>
+          <div class="skill-desc">BIM software: every element carries data, not just geometry, so the model acts as a coordinated, data-rich database shared across architecture, structure and MEP. Self-taught its parametric, element-based logic — a different way of thinking to Rhino's freeform NURBS modelling. Comfortable navigating the environment and its project structure; building toward production-level delivery experience.</div>
         </div>
       </div>
 
@@ -1247,6 +1244,7 @@
           <div class="stat-label">Countries with live built projects</div>
         </div>
       </div>
+    </div>
     </div>
   </section>
 
