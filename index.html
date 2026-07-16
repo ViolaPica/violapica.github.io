@@ -128,7 +128,40 @@
       text-decoration: none;
       font-weight: 400;
     }
-    .nav-links { display: flex; gap: 40px; list-style: none; }
+    .nav-links { display: flex; gap: 40px; list-style: none; align-items: center; }
+    .lang-switch {
+      display: flex; gap: 10px; align-items: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .1em;
+    }
+    .lang-switch button {
+      background: none; border: none; cursor: none;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .1em;
+      color: var(--warm-mid);
+      padding: 0;
+      transition: color .2s;
+    }
+    .lang-switch button.active { color: var(--accent); }
+    .lang-switch button:hover { color: var(--ink); }
+    .lang-switch-sep { color: var(--rule); font-size: 10px; }
+    .mobile-lang-switch {
+      display: flex; gap: 16px; justify-content: center; margin-top: 32px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: .15em;
+    }
+    .mobile-lang-switch button {
+      background: none; border: none; cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: .15em;
+      color: var(--warm-mid);
+      padding: 4px;
+    }
+    .mobile-lang-switch button.active { color: var(--accent); }
     .nav-links a {
       font-family: var(--font-mono);
       font-size: 11px;
@@ -264,13 +297,6 @@
     }
     .award-pill span { color: var(--accent); }
 
-    /* horizontal rule */
-    .h-rule {
-      position: absolute;
-      bottom: 0; left: 60px; right: 60px;
-      height: 1px; background: var(--rule);
-    }
-
     /* ── SECTION BASE ── */
     section { padding: 120px 60px; }
     .section-label {
@@ -280,18 +306,13 @@
       text-transform: uppercase;
       color: var(--accent);
       margin-bottom: 64px;
-      display: flex; align-items: center; gap: 20px;
-    }
-    .section-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--rule);
     }
 
     /* ── ABOUT ── */
     #about {
       display: block;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
     }
     .about-photo-wrap {
       width: 100%;
@@ -343,7 +364,8 @@
       text-transform: uppercase;
       color: var(--warm-mid);
     }
-    .skill-item:nth-child(odd) { padding-right: 20px; border-right: 1px solid var(--rule); }
+    .skill-item:nth-child(odd) { padding-right: 32px; border-right: 1px solid var(--rule); }
+    .skill-item:nth-child(even) { padding-left: 32px; }
 
     .about-right {
       padding-top: 60px;
@@ -372,7 +394,6 @@
     /* ── EXPERIENCE ── */
     #experience { background: var(--ink); color: var(--cream); }
     #experience .section-label { color: var(--accent); }
-    #experience .section-label::after { background: rgba(255,255,255,.12); }
 
     .exp-heading {
       font-size: clamp(36px, 3.5vw, 52px);
@@ -945,7 +966,6 @@
       .hero-tagline { font-size: 13px; max-width: 100%; }
       .award-pill { display: none; }
       .hero-cta { flex-direction: column; gap: 16px; align-items: flex-start; }
-      .section-label::after { display: none; }
 
       /* ABOUT */
       #about { padding: 72px 24px; }
@@ -1014,6 +1034,8 @@
     @media (max-width: 480px) {
       .hero-name { font-size: 13vw; }
       .skills-grid { grid-template-columns: 1fr; }
+      .skill-item:nth-child(odd) { padding-right: 0; border-right: none; }
+      .skill-item:nth-child(even) { padding-left: 0; }
     }
 
     .btn-download { border: none; }
@@ -1080,12 +1102,19 @@
   <nav id="nav">
     <a href="#hero" class="nav-logo">Viola Pica</a>
     <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#portfolio">Portfolio</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#awards">Recognition</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#about" data-en="About" data-es="Sobre mí" data-it="Chi sono">About</a></li>
+      <li><a href="#experience" data-en="Experience" data-es="Experiencia" data-it="Esperienza">Experience</a></li>
+      <li><a href="#portfolio" data-en="Portfolio" data-es="Portafolio" data-it="Portfolio">Portfolio</a></li>
+      <li><a href="#education" data-en="Education" data-es="Educación" data-it="Formazione">Education</a></li>
+      <li><a href="#awards" data-en="Recognition" data-es="Reconocimientos" data-it="Riconoscimenti">Recognition</a></li>
+      <li><a href="#contact" data-en="Contact" data-es="Contacto" data-it="Contatti">Contact</a></li>
+      <li class="lang-switch">
+        <button onclick="applyLang('en')" data-lang-btn="en">EN</button>
+        <span class="lang-switch-sep">/</span>
+        <button onclick="applyLang('es')" data-lang-btn="es">ES</button>
+        <span class="lang-switch-sep">/</span>
+        <button onclick="applyLang('it')" data-lang-btn="it">IT</button>
+      </li>
     </ul>
     <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -1096,26 +1125,30 @@
   <div class="mobile-menu" id="mobile-menu">
     <button class="mobile-menu-close" onclick="closeMenu()" aria-label="Close menu">&#x2715;</button>
     <ul>
-      <li><a href="#about" onclick="closeMenu()">About</a></li>
-      <li><a href="#experience" onclick="closeMenu()">Experience</a></li>
-      <li><a href="#portfolio" onclick="closeMenu()">Portfolio</a></li>
-      <li><a href="#education" onclick="closeMenu()">Education</a></li>
-      <li><a href="#awards" onclick="closeMenu()">Recognition</a></li>
-      <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+      <li><a href="#about" onclick="closeMenu()" data-en="About" data-es="Sobre mí" data-it="Chi sono">About</a></li>
+      <li><a href="#experience" onclick="closeMenu()" data-en="Experience" data-es="Experiencia" data-it="Esperienza">Experience</a></li>
+      <li><a href="#portfolio" onclick="closeMenu()" data-en="Portfolio" data-es="Portafolio" data-it="Portfolio">Portfolio</a></li>
+      <li><a href="#education" onclick="closeMenu()" data-en="Education" data-es="Educación" data-it="Formazione">Education</a></li>
+      <li><a href="#awards" onclick="closeMenu()" data-en="Recognition" data-es="Reconocimientos" data-it="Riconoscimenti">Recognition</a></li>
+      <li><a href="#contact" onclick="closeMenu()" data-en="Contact" data-es="Contacto" data-it="Contatti">Contact</a></li>
     </ul>
+    <div class="mobile-lang-switch">
+      <button onclick="applyLang('en')" data-lang-btn="en">EN</button>
+      <button onclick="applyLang('es')" data-lang-btn="es">ES</button>
+      <button onclick="applyLang('it')" data-lang-btn="it">IT</button>
+    </div>
   </div>
 
   <!-- HERO -->
   <section id="hero">
     <div class="hero-left">
-      <p class="hero-eyebrow">Interior Architecture &amp; Design, London</p>
-      <h1 class="hero-name">Viola<br><em>Pica</em></h1>
-      <p class="hero-tagline">MA Interior Design, Royal College of Art. BA Hons Interior Design &amp; Environmental Architecture, Ravensbourne University. Two years of studio and joinery practice. Shaped by growing up between Rome and Venice, with a passion for craft, sustainability, and spatial narrative.</p>
+      <p class="hero-eyebrow" data-en="Interior Architecture &amp; Design, London" data-es="Arquitectura de Interiores y Diseño, Londres" data-it="Architettura d'Interni e Design, Londra">Interior Architecture &amp; Design, London</p>
+      <h1 class="hero-name" data-en-html="Viola<br><em>Pica</em>" data-es-html="Viola<br><em>Pica</em>" data-it-html="Viola<br><em>Pica</em>">Viola<br><em>Pica</em></h1>
+      <p class="hero-tagline" data-en="MA Interior Design, Royal College of Art. BA Hons Interior Design &amp; Environmental Architecture, Ravensbourne University. Two years of studio and joinery practice. Shaped by growing up between Rome and Venice, with a passion for craft, sustainability, and spatial narrative." data-es="Máster en Diseño de Interiores, Royal College of Art. Licenciatura en Diseño de Interiores y Arquitectura Ambiental, Ravensbourne University. Dos años de práctica en estudio y carpintería. Formada entre Roma y Venecia, con pasión por el oficio, la sostenibilidad y la narrativa espacial." data-it="Master in Interior Design, Royal College of Art. Laurea in Interior Design e Architettura Ambientale, Ravensbourne University. Due anni di pratica in studio e falegnameria. Cresciuta tra Roma e Venezia, con una passione per l'artigianato, la sostenibilità e la narrazione spaziale.">MA Interior Design, Royal College of Art. BA Hons Interior Design &amp; Environmental Architecture, Ravensbourne University. Two years of studio and joinery practice. Shaped by growing up between Rome and Venice, with a passion for craft, sustainability, and spatial narrative.</p>
       <div class="hero-cta">
-        <a href="#portfolio" class="btn-primary">View Work</a>
-        <a href="#contact" class="hero-scroll">Get in touch ↓</a>
+        <a href="#portfolio" class="btn-primary" data-en="View Work" data-es="Ver Trabajo" data-it="Vedi i Lavori">View Work</a>
+        <a href="#contact" class="hero-scroll" data-en="Get in touch ↓" data-es="Contactar ↓" data-it="Contattami ↓">Get in touch ↓</a>
       </div>
-      <div class="h-rule"></div>
     </div>
 
     <div class="hero-right">
@@ -1123,7 +1156,7 @@
         <img src="hero-drawing.webp" alt="Exploded axonometric construction drawing" />
       </div>
 
-      <div class="award-pill">
+      <div class="award-pill" data-en-html="&lt;span&gt;01&lt;/span&gt; MA Drawing Prize — Nominee&lt;br&gt;&lt;span&gt;02&lt;/span&gt; RIBA First Prize — 2023&lt;br&gt;&lt;span&gt;03&lt;/span&gt; RIBA SELA — Active Member" data-es-html="&lt;span&gt;01&lt;/span&gt; Premio de Dibujo MA — Nominada&lt;br&gt;&lt;span&gt;02&lt;/span&gt; Primer Premio RIBA — 2023&lt;br&gt;&lt;span&gt;03&lt;/span&gt; RIBA SELA — Miembro Activa" data-it-html="&lt;span&gt;01&lt;/span&gt; Premio Disegno MA — Candidata&lt;br&gt;&lt;span&gt;02&lt;/span&gt; Primo Premio RIBA — 2023&lt;br&gt;&lt;span&gt;03&lt;/span&gt; RIBA SELA — Membro Attivo">
         <span>01</span> MA Drawing Prize — Nominee<br>
         <span>02</span> RIBA First Prize — 2023<br>
         <span>03</span> RIBA SELA — Active Member
@@ -1135,13 +1168,13 @@
   <section id="about">
     <div class="about-grid">
     <div class="about-left">
-      <p class="section-label reveal">Profile</p>
-      <h2 class="about-heading reveal reveal-delay-1">Design rooted in<br><em>storytelling &amp; curiosity</em></h2>
-      <p class="about-body reveal reveal-delay-2">I'm Viola, an Italian-born interior and architectural designer finishing my MA at the Royal College of Art. My eye for space was shaped early: growing up between Rome's layered architecture and the frequent visits to the Biennales of Venice, design was never abstract. It was always somewhere you could stand inside and feel.</p>
-      <p class="about-body reveal reveal-delay-2">Educated at the American Overseas School of Rome, I bring a bilingual, cross-cultural perspective to everything I make. My practice sits at the intersection of spatial narrative, material honesty, and renovation: the belief that existing buildings hold stories worth continuing rather than erasing.</p>
-      <p class="about-body reveal reveal-delay-2">Beyond the studio I have worked hands-on: MEP drawings, bespoke joinery documentation, on-site coordination and photoshoots at EastJR made me just as comfortable on a building site as at a drawing board. Outside of work: acrobatic gymnastics, glassblowing, and a long-standing interest in neuropsychology, which feeds directly into how I think about the human experience of space.</p>
+      <p class="section-label reveal" data-en="Profile" data-es="Perfil" data-it="Profilo">Profile</p>
+      <h2 class="about-heading reveal reveal-delay-1" data-en-html="Design rooted in<br><em>storytelling &amp; curiosity</em>" data-es-html="Diseño con raíces en<br><em>narrativa y curiosidad</em>" data-it-html="Design radicato in<br><em>narrazione e curiosità</em>">Design rooted in<br><em>storytelling &amp; curiosity</em></h2>
+      <p class="about-body reveal reveal-delay-2" data-en="I'm Viola, an Italian-born interior and architectural designer finishing my MA at the Royal College of Art. My eye for space was shaped early: growing up between Rome's layered architecture and the frequent visits to the Biennales of Venice, design was never abstract. It was always somewhere you could stand inside and feel." data-es="Soy Viola, diseñadora de interiores y arquitectura nacida en Italia, terminando mi Máster en el Royal College of Art. Mi sensibilidad por el espacio se formó pronto: creciendo entre la arquitectura estratificada de Roma y las visitas frecuentes a las Bienales de Venecia, el diseño nunca fue abstracto. Siempre fue un lugar donde podías entrar y sentir." data-it="Sono Viola, interior designer e progettista di architettura nata in Italia, in procinto di concludere il mio Master al Royal College of Art. La mia sensibilità per lo spazio si è formata presto: crescendo tra l'architettura stratificata di Roma e le frequenti visite alle Biennali di Venezia, il design non è mai stato astratto. È sempre stato qualcosa in cui potevi entrare e sentire.">I'm Viola, an Italian-born interior and architectural designer finishing my MA at the Royal College of Art. My eye for space was shaped early: growing up between Rome's layered architecture and the frequent visits to the Biennales of Venice, design was never abstract. It was always somewhere you could stand inside and feel.</p>
+      <p class="about-body reveal reveal-delay-2" data-en="Educated at the American Overseas School of Rome, I bring a bilingual, cross-cultural perspective to everything I make. My practice sits at the intersection of spatial narrative, material honesty, and renovation: the belief that existing buildings hold stories worth continuing rather than erasing." data-es="Educada en la American Overseas School of Rome, aporto una perspectiva bilingüe e intercultural a todo lo que hago. Mi práctica se sitúa en la intersección entre la narrativa espacial, la honestidad material y la renovación: la creencia de que los edificios existentes guardan historias que merece la pena continuar, no borrar." data-it="Formata alla American Overseas School of Rome, porto una prospettiva bilingue e interculturale in tutto ciò che realizzo. La mia pratica si colloca all'intersezione tra narrazione spaziale, onestà dei materiali e rinnovamento: la convinzione che gli edifici esistenti custodiscano storie che meritano di essere continuate, non cancellate.">Educated at the American Overseas School of Rome, I bring a bilingual, cross-cultural perspective to everything I make. My practice sits at the intersection of spatial narrative, material honesty, and renovation: the belief that existing buildings hold stories worth continuing rather than erasing.</p>
+      <p class="about-body reveal reveal-delay-2" data-en="Beyond the studio I have worked hands-on: MEP drawings, bespoke joinery documentation, on-site coordination and photoshoots at EastJR made me just as comfortable on a building site as at a drawing board. Outside of work: acrobatic gymnastics, glassblowing, and a long-standing interest in neuropsychology, which feeds directly into how I think about the human experience of space." data-es="Más allá del estudio, he trabajado de forma práctica: los planos MEP, la documentación de carpintería a medida, la coordinación en obra y las sesiones fotográficas en EastJR me hicieron sentir tan cómoda en una obra como en un tablero de dibujo. Fuera del trabajo: gimnasia acrobática, soplado de vidrio, y un interés duradero por la neuropsicología, que alimenta directamente mi forma de pensar la experiencia humana del espacio." data-it="Oltre allo studio, ho lavorato in modo pratico: disegni MEP, documentazione di falegnameria su misura, coordinamento in cantiere e servizi fotografici da EastJR mi hanno reso a mio agio tanto in cantiere quanto al tavolo da disegno. Fuori dal lavoro: ginnastica acrobatica, soffiatura del vetro, e un interesse di lunga data per la neuropsicologia, che alimenta direttamente il mio modo di pensare all'esperienza umana dello spazio.">Beyond the studio I have worked hands-on: MEP drawings, bespoke joinery documentation, on-site coordination and photoshoots at EastJR made me just as comfortable on a building site as at a drawing board. Outside of work: acrobatic gymnastics, glassblowing, and a long-standing interest in neuropsychology, which feeds directly into how I think about the human experience of space.</p>
 
-      <p class="skills-heading reveal reveal-delay-3">Software &amp; Technical</p>
+      <p class="skills-heading reveal reveal-delay-3" data-en="Software &amp; Technical" data-es="Software y Técnica" data-it="Software e Tecnica">Software &amp; Technical</p>
       <div class="skills-proficiency reveal reveal-delay-3">
         <div class="skill-row">
           <button class="skill-toggle" onclick="toggleSkill(this)">
@@ -1199,7 +1232,7 @@
         </div>
       </div>
 
-      <p class="skills-heading reveal reveal-delay-3" style="margin-top:32px;">Studio &amp; Practice</p>
+      <p class="skills-heading reveal reveal-delay-3" style="margin-top:32px;" data-en="Studio &amp; Practice" data-es="Estudio y Práctica" data-it="Studio e Pratica">Studio &amp; Practice</p>
       <div class="skills-grid reveal reveal-delay-3">
         <div class="skill-item">Client Management</div>
         <div class="skill-item">Project Coordination</div>
@@ -1211,7 +1244,7 @@
         <div class="skill-item">Supplier Management</div>
       </div>
 
-      <p class="skills-heading reveal reveal-delay-3" style="margin-top:32px;">Systems &amp; Workflow</p>
+      <p class="skills-heading reveal reveal-delay-3" style="margin-top:32px;" data-en="Systems &amp; Workflow" data-es="Sistemas y Flujo de Trabajo" data-it="Sistemi e Flusso di Lavoro">Systems &amp; Workflow</p>
       <div class="skills-grid reveal reveal-delay-3">
         <div class="skill-item">File Organisation &amp; Optimisation</div>
         <div class="skill-item">macOS Ecosystem</div>
@@ -1229,23 +1262,23 @@
       <div class="stat-stack">
         <div class="stat-item">
           <div class="stat-number">RCA</div>
-          <div class="stat-label">MA Interior Design, 2025/26</div>
+          <div class="stat-label" data-en="MA Interior Design, 2025/26" data-es="Máster en Diseño de Interiores, 2025/26" data-it="Master in Interior Design, 2025/26">MA Interior Design, 2025/26</div>
         </div>
         <div class="stat-item">
           <div class="stat-number">RIBA</div>
-          <div class="stat-label">Part 1 Certified, First Prize Winner</div>
+          <div class="stat-label" data-en="Part 1 Certified, First Prize Winner" data-es="Certificación Parte 1, Ganadora del Primer Premio" data-it="Certificazione Parte 1, Vincitrice del Primo Premio">Part 1 Certified, First Prize Winner</div>
         </div>
         <div class="stat-item">
           <div class="stat-number">2+</div>
-          <div class="stat-label">Years London studio experience</div>
+          <div class="stat-label" data-en="Years London studio experience" data-es="Años de experiencia en estudio en Londres" data-it="Anni di esperienza in studio a Londra">Years London studio experience</div>
         </div>
         <div class="stat-item">
           <div class="stat-number">3</div>
-          <div class="stat-label">Languages — IT / EN / ES</div>
+          <div class="stat-label" data-en="Languages — IT / EN / ES" data-es="Idiomas — IT / EN / ES" data-it="Lingue — IT / EN / ES">Languages — IT / EN / ES</div>
         </div>
         <div class="stat-item">
           <div class="stat-number">2</div>
-          <div class="stat-label">Countries with live built projects</div>
+          <div class="stat-label" data-en="Countries with live built projects" data-es="Países con proyectos construidos" data-it="Paesi con progetti realizzati">Countries with live built projects</div>
         </div>
       </div>
     </div>
@@ -1254,8 +1287,8 @@
 
   <!-- EXPERIENCE -->
   <section id="experience">
-    <p class="section-label reveal">Work</p>
-    <h2 class="exp-heading reveal reveal-delay-1">Experience &amp;<br><em>Practice</em></h2>
+    <p class="section-label reveal" data-en="Work" data-es="Trabajo" data-it="Esperienza">Work</p>
+    <h2 class="exp-heading reveal reveal-delay-1" data-en-html="Experience &amp;<br><em>Practice</em>" data-es-html="Experiencia y<br><em>Práctica</em>" data-it-html="Esperienza e<br><em>Pratica</em>">Experience &amp;<br><em>Practice</em></h2>
 
     <div class="exp-list">
       <div class="exp-item reveal">
@@ -1292,7 +1325,7 @@
 
   <!-- PORTFOLIO -->
   <section id="portfolio">
-    <h2 class="about-heading reveal reveal-delay-1" style="margin-bottom:56px;">Selected<br><em>Projects</em></h2>
+    <h2 class="about-heading reveal reveal-delay-1" style="margin-bottom:56px;" data-en-html="Selected<br><em>Projects</em>" data-es-html="Proyectos<br><em>Seleccionados</em>" data-it-html="Progetti<br><em>Selezionati</em>">Selected<br><em>Projects</em></h2>
 
     <div class="projects-list">
 
@@ -1302,11 +1335,11 @@
           <div class="project-meta">
             <span class="project-index">01</span>
             <span class="project-year">2025/26</span>
-            <span class="project-tag">RCA MA Thesis</span>
+            <span class="project-tag" data-en="RCA MA Thesis" data-es="Tesis de Máster, RCA" data-it="Tesi di Master, RCA">RCA MA Thesis</span>
           </div>
           <div class="project-title-wrap">
             <h3 class="project-title">The Unlikely Tenant</h3>
-            <p class="project-subtitle">RCA MA Interior Design — Adaptive Reuse, Canary Wharf</p>
+            <p class="project-subtitle" data-en="RCA MA Interior Design — Adaptive Reuse, Canary Wharf" data-es="Máster en Diseño de Interiores, RCA — Reutilización Adaptativa, Canary Wharf" data-it="Master in Interior Design, RCA — Riuso Adattivo, Canary Wharf">RCA MA Interior Design — Adaptive Reuse, Canary Wharf</p>
           </div>
           <span class="project-toggle-icon">+</span>
         </div>
@@ -1332,11 +1365,11 @@
           <div class="project-meta">
             <span class="project-index">02</span>
             <span class="project-year">2025</span>
-            <span class="project-tag">Built</span>
+            <span class="project-tag" data-en="Built" data-es="Construido" data-it="Realizzato">Built</span>
           </div>
           <div class="project-title-wrap">
             <h3 class="project-title">Yumtea</h3>
-            <p class="project-subtitle">EastJR Studio — Commercial Interior Fit-Out, High Holborn</p>
+            <p class="project-subtitle" data-en="EastJR Studio — Commercial Interior Fit-Out, High Holborn" data-es="Estudio EastJR — Acondicionamiento de Interior Comercial, High Holborn" data-it="Studio EastJR — Allestimento Interni Commerciale, High Holborn">EastJR Studio — Commercial Interior Fit-Out, High Holborn</p>
           </div>
           <span class="project-toggle-icon">+</span>
         </div>
@@ -1362,11 +1395,11 @@
           <div class="project-meta">
             <span class="project-index">03</span>
             <span class="project-year">2025</span>
-            <span class="project-tag">Built</span>
+            <span class="project-tag" data-en="Built" data-es="Construido" data-it="Realizzato">Built</span>
           </div>
           <div class="project-title-wrap">
             <h3 class="project-title">Triptych — Nagare Coffee</h3>
-            <p class="project-subtitle">EastJR Studio — Commercial Interior Fit-Out, London Bridge</p>
+            <p class="project-subtitle" data-en="EastJR Studio — Commercial Interior Fit-Out, London Bridge" data-es="Estudio EastJR — Acondicionamiento de Interior Comercial, London Bridge" data-it="Studio EastJR — Allestimento Interni Commerciale, London Bridge">EastJR Studio — Commercial Interior Fit-Out, London Bridge</p>
           </div>
           <span class="project-toggle-icon">+</span>
         </div>
@@ -1392,11 +1425,11 @@
           <div class="project-meta">
             <span class="project-index">04</span>
             <span class="project-year">2023</span>
-            <span class="project-tag">RIBA First Prize, Ravensbourne</span>
+            <span class="project-tag" data-en="RIBA First Prize, Ravensbourne" data-es="Primer Premio RIBA, Ravensbourne" data-it="Primo Premio RIBA, Ravensbourne">RIBA First Prize, Ravensbourne</span>
           </div>
           <div class="project-title-wrap">
             <h3 class="project-title">Story of Storeys</h3>
-            <p class="project-subtitle">Ravensbourne University, Final Year — Adaptive Reuse, Catford</p>
+            <p class="project-subtitle" data-en="Ravensbourne University, Final Year — Adaptive Reuse, Catford" data-es="Ravensbourne University, Último Año — Reutilización Adaptativa, Catford" data-it="Ravensbourne University, Ultimo Anno — Riuso Adattivo, Catford">Ravensbourne University, Final Year — Adaptive Reuse, Catford</p>
           </div>
           <span class="project-toggle-icon">+</span>
         </div>
@@ -1422,11 +1455,11 @@
           <div class="project-meta">
             <span class="project-index">05</span>
             <span class="project-year">2022</span>
-            <span class="project-tag">Competition Entry</span>
+            <span class="project-tag" data-en="Competition Entry" data-es="Propuesta de Concurso" data-it="Proposta di Concorso">Competition Entry</span>
           </div>
           <div class="project-title-wrap">
             <h3 class="project-title">Emerging Views</h3>
-            <p class="project-subtitle">Ravensbourne University, Competition Entry — Mývatn, Iceland</p>
+            <p class="project-subtitle" data-en="Ravensbourne University, Competition Entry — Mývatn, Iceland" data-es="Ravensbourne University, Propuesta de Concurso — Mývatn, Islandia" data-it="Ravensbourne University, Proposta di Concorso — Mývatn, Islanda">Ravensbourne University, Competition Entry — Mývatn, Iceland</p>
           </div>
           <span class="project-toggle-icon">+</span>
         </div>
@@ -1448,36 +1481,36 @@
 
     </div>
 
-    <p class="projects-note reveal">For the full picture, <a href="#contact">view the portfolio</a></p>
+    <p class="projects-note reveal" data-en-html="For the full picture, <a href=&quot;#contact&quot;>view the portfolio</a>" data-es-html="Para verlo completo, <a href=&quot;#contact&quot;>consulta el portafolio</a>" data-it-html="Per il quadro completo, <a href=&quot;#contact&quot;>vedi il portfolio</a>">For the full picture, <a href="#contact">view the portfolio</a></p>
 
   </section>
 
   <!-- EDUCATION -->
   <section id="education">
-    <p class="section-label reveal">Education</p>
+    <p class="section-label reveal" data-en="Education" data-es="Educación" data-it="Formazione">Education</p>
 
     <div class="edu-item reveal">
-      <div class="edu-degree">MA Interior Design</div>
+      <div class="edu-degree" data-en="MA Interior Design" data-es="Máster en Diseño de Interiores" data-it="Master in Interior Design">MA Interior Design</div>
       <div class="edu-school">Royal College of Art, London</div>
       <div class="edu-year">2025 – 2026</div>
     </div>
 
     <div class="edu-item reveal reveal-delay-1">
-      <div class="edu-degree">BA (Hons) Interior Design<br>&amp; Environmental Architecture</div>
+      <div class="edu-degree" data-en-html="BA (Hons) Interior Design&lt;br&gt;&amp; Environmental Architecture" data-es-html="Licenciatura en Diseño de Interiores&lt;br&gt;y Arquitectura Ambiental" data-it-html="Laurea in Interior Design&lt;br&gt;e Architettura Ambientale">BA (Hons) Interior Design<br>&amp; Environmental Architecture</div>
       <div class="edu-school">Ravensbourne University London, ARB Part 1 / RIBA Part 1</div>
       <div class="edu-year">2020 – 2023</div>
     </div>
 
     <div class="edu-item reveal reveal-delay-2">
-      <div class="edu-degree">International Baccalaureate</div>
+      <div class="edu-degree" data-en="International Baccalaureate" data-es="Bachillerato Internacional" data-it="Diploma di Maturità Internazionale">International Baccalaureate</div>
       <div class="edu-school">American Overseas School of Rome</div>
-      <div class="edu-year">IB Diploma Programme</div>
+      <div class="edu-year" data-en="IB Diploma Programme" data-es="Programa del Diploma IB" data-it="Programma del Diploma IB">IB Diploma Programme</div>
     </div>
   </section>
 
   <!-- AWARDS -->
   <section id="awards">
-    <p class="section-label reveal">Recognition</p>
+    <p class="section-label reveal" data-en="Recognition" data-es="Reconocimientos" data-it="Riconoscimenti">Recognition</p>
     <div class="awards-grid" style="grid-template-columns: repeat(3,1fr);">
       <div class="award-item reveal">
         <div class="award-number">01</div>
@@ -1516,11 +1549,11 @@
   <section id="contact">
     <div class="contact-bg"></div>
     <div class="contact-inner">
-      <p class="section-label reveal" style="color:var(--accent);">Contact</p>
+      <p class="section-label reveal" style="color:var(--accent);" data-en="Contact" data-es="Contacto" data-it="Contatti">Contact</p>
 
       <div class="contact-links reveal reveal-delay-1">
         <a href="mailto:info4viola@gmail.com" class="contact-link-item">
-          <span class="contact-link-label">Email</span>
+          <span class="contact-link-label" data-en="Email" data-es="Correo" data-it="Email">Email</span>
           <span class="contact-link-value">info4viola@gmail.com</span>
           <span class="contact-link-arrow">→</span>
         </a>
@@ -1535,15 +1568,15 @@
           <span class="contact-link-arrow">→</span>
         </a>
         <a href="https://www.google.com/maps/place/London" target="_blank" rel="noopener" class="contact-link-item">
-          <span class="contact-link-label">Location</span>
+          <span class="contact-link-label" data-en="Location" data-es="Ubicación" data-it="Posizione">Location</span>
           <span class="contact-link-value">London, United Kingdom</span>
           <span class="contact-link-arrow">→</span>
         </a>
       </div>
 
       <div class="portfolio-cta reveal reveal-delay-2" style="margin-top:56px;">
-        <a href="portfolio.pdf" class="btn-download primary" target="_blank" rel="noopener">↗ View Portfolio</a>
-        <a href="cv.pdf" class="btn-download ghost" target="_blank" rel="noopener">↗ View CV</a>
+        <a href="portfolio.pdf" class="btn-download primary" target="_blank" rel="noopener" data-en="↗ View Portfolio" data-es="↗ Ver Portafolio" data-it="↗ Vedi Portfolio">↗ View Portfolio</a>
+        <a href="cv.pdf" class="btn-download ghost" target="_blank" rel="noopener" data-en="↗ View CV" data-es="↗ Ver CV" data-it="↗ Vedi CV">↗ View CV</a>
       </div>
     </div>
   </section>
@@ -1551,7 +1584,7 @@
   <!-- FOOTER -->
   <footer>
     <p>© 2026 Viola Pica</p>
-    <p>Interior Architecture &amp; Design</p>
+    <p data-en="Interior Architecture &amp; Design" data-es="Arquitectura de Interiores y Diseño" data-it="Architettura d'Interni e Design">Interior Architecture &amp; Design</p>
   </footer>
 
   <script>
@@ -1638,6 +1671,35 @@
       hamburger.classList.remove('open');
       document.body.style.overflow = '';
     }
+
+    // ── LANGUAGE SWITCH ──
+    function applyLang(lang) {
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const val = el.getAttribute('data-' + lang);
+        if (val !== null) el.textContent = val;
+      });
+      document.querySelectorAll('[data-en-html]').forEach(el => {
+        const val = el.getAttribute('data-' + lang + '-html');
+        if (val !== null) el.innerHTML = val;
+      });
+      document.documentElement.setAttribute('lang', lang);
+      document.querySelectorAll('[data-lang-btn]').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang-btn') === lang);
+      });
+      try { localStorage.setItem('site-lang', lang); } catch(e) {}
+    }
+    (function() {
+      let saved = null;
+      try { saved = localStorage.getItem('site-lang'); } catch(e) {}
+      if (saved === 'en' || saved === 'es' || saved === 'it') {
+        applyLang(saved);
+      } else {
+        const browserLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+        if (browserLang.startsWith('es')) applyLang('es');
+        else if (browserLang.startsWith('it')) applyLang('it');
+        else applyLang('en');
+      }
+    })();
 
     // Nav scroll
     const nav = document.getElementById('nav');
